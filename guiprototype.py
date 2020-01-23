@@ -181,18 +181,22 @@ class coldCallGui:
         # TODO: here is where the name will marked as flagged
         if (self.select == 1):
             # TODO: flag student1
+            self.n1.set(self.queueTest()) # ensure that the record is removed when the downKey is pushed
             self.left['bg'] = 'red'
 
         if (self.select == 2):
             # TODO: flag student2
+            self.n2.set(self.queueTest()) # ensure that the record is removed when the downKey is pushed
             self.right['bg'] = 'red'
 
         if (self.select == 3):
             # TODO: flag student3
+            self.n3.set(self.queueTest()) # ensure that the record is removed when the downKey is pushed
             self.left2['bg'] = 'red'
 
         if (self.select == 4):
             # TODO: flag student4
+            self.n4.set(self.queueTest()) # ensure that the record is removed when the downKey is pushed
             self.right2['bg'] = 'red'
 
 #-------------------------------------------------------------------------------
