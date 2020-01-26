@@ -1,15 +1,15 @@
 # Basic roster and student data structures
-# Author Cory Ingram. Reviewed by Alex Archer ##**comments**
+# Author Cory Ingram. Reviewed by Alex Archer 
+# Docstrings added by Ryan Gurnick
 
-##Imports
+# Imports from std lib
 import csv
 import os.path
 
-## **Can this automatically detect which format is being uploaded during the read?** 
+## TODO: **Can this automatically detect which format is being uploaded during the read?** 
 # Change between ',' and '\t' for csv or tsv
 delim = '\t'
 
-## **PEP8 standards, capital Class, rest lowercase**
 class Student:
 	"""
 	Student Class
@@ -42,28 +42,63 @@ class Student:
 		"""
 		return 'student named {self.first} {self.last} ID {self.ID}'.format(self=self)
 		
-#list of Student objects
+
 class Roster:
+	"""
+	Student Class
+	functions:
+	__init__ -- initialize the student class
+	__str__ -- representation of the student class
+	import_roster -- allows importing of CSV/TSV based on delim
+	export_roster -- allowed exporting of roster to CSV/TSV based on delim
+	"""
+
 	def __init__(self):
-		self.students = []
+		"""
+		Initialize the Roster class and data structure
+		Args:
+		None
+		"""
+		self.students = [] # list of student objects
 		
 	def import_roster(self, filename):
-		self.students.clear()
-		if os.path.exists(filename):
-			with open(filename) as csv_file:
-				csv_reader = csv.reader(csv_file, delimiter= delim)
-				for row in csv_reader: ##each row is a student's information
-					self.students.append(Student(row[0], row[1], row[2], row[3], row[4], row[5]))
-				csv_file.close()
-		else:
-			print('File does not exist!')
+		"""
+		Allows the roster to be imported from CSV/TSV
+		args:
+		filename -- the location at which the file to be imported is stored
+		globals used:
+		delim -- this will determine what deliminator is used and thus if its using TSV or CSV
+		None
+		"""
+		self.students.clear() # empties the student list on import
+		if os.path.exists(filename): # checks if the specified file exists
+			with open(filename) as csv_file: # opens the file
+				csv_reader = csv.reader(csv_file, delimiter=delim) # reads the csv data
+				for row in csv_reader: # loops through each row
+					self.students.append(Student(row[0], row[1], row[2], row[3], row[4], row[5])) # appends the data into the list
+				csv_file.close() # closes the file
+		else: # if the file does not exist
+			print('File does not exist!') # print warning
 			
 	def export_roster(self):
-		expfile = open('export_roster.csv', 'w')
-		for student in self.students:
+		"""
+		Allows the roster to be exported to TSV/CSV
+		args:
+		None
+		globals used:
+		delim -- this will determine what deliminator is used and thus if its using TSV or CSV
+		"""
+		expfile = open('export_roster.csv', 'w') # open the file stream
+		for student in self.students: # loop through the students stored in the roster
+			# output the file information with the correct delim and student
 			expfile.write('{student.first}{c}{student.last}{c}{student.ID}{c}{student.email}{c}{student.phonetic}{c}{student.reveal}\n'.format(student=student, c=delim))
-		expfile.close()	
+		expfile.close()	# close the file stream
 
 	def __str__(self):
+		"""
+		Defines the representation for the student when converted to string
+		args:
+		None
+		"""
 		return '{self.students}'.format(self=self)
 
