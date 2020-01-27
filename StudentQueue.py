@@ -20,7 +20,7 @@ def students_list():
         student_roster.import_roster('queue.csv')
     
     else:
-        student_roster.import_roster('tsvtest.csv')
+        student_roster.import_roster('csvtest.csv')
             #send list to randomize
         student_roster.students = randomizer(student_roster.students)
     return student_roster.students
