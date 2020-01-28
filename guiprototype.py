@@ -1,12 +1,12 @@
 #
-# Sean Wilson - 1/20/20, Reviewed Alex Archer - 1/21/20
+# Sean Wilson - 1/20/19
 # -GUI prototype v1.0
 # -Group1 cis422 @ U of O W'20
-# 
+#
 
 #-------------------------------------------------------------------------------
 
-# imports
+# import all the the tkinter library has to offer
 from tkinter import *
 
 #-------------------------------------------------------------------------------
@@ -36,6 +36,7 @@ class coldCallGui:
         self.select = 1
 
         # size of main window (short and wide for top of screen)
+        self.main.attributes('-topmost', True)
         self.main.geometry("1500x200")
         self.main.title("Welcome to Cold-Call Assist")
 
@@ -82,6 +83,14 @@ class coldCallGui:
         self.main.bind('<Up>', self.upKey)
         self.main.bind('<Down>', self.downKey)
 
+        # menu
+        menu = Menu()
+        self.main.config(menu=menu)
+        filemenu = Menu(menu)
+        menu.add_cascade(label='File', menu=filemenu)
+        filemenu.add_command(label='New')
+        filemenu.add_command(label='Test', command=lambda: print("Testing"))
+
         #main window loop initiaition
         self.main.mainloop()
 
@@ -113,6 +122,8 @@ class coldCallGui:
         #if select not on leftmost student, move select left
         if(self.select != 1):
             self.select -= 1
+        else:
+            self.select = 4
 
         #recolor the frame the select is now on
         if (self.select == 1):
@@ -138,6 +149,8 @@ class coldCallGui:
         #if select not on rightmost student, move select right
         if(self.select != 4):
             self.select += 1
+        else:
+            self.select = 1
 
         #recolor the frame the select is now on
         if (self.select == 1):
@@ -181,22 +194,18 @@ class coldCallGui:
         # TODO: here is where the name will marked as flagged
         if (self.select == 1):
             # TODO: flag student1
-            self.n1.set(self.queueTest()) # ensure that the record is removed when the downKey is pushed
             self.left['bg'] = 'red'
 
         if (self.select == 2):
             # TODO: flag student2
-            self.n2.set(self.queueTest()) # ensure that the record is removed when the downKey is pushed
             self.right['bg'] = 'red'
 
         if (self.select == 3):
             # TODO: flag student3
-            self.n3.set(self.queueTest()) # ensure that the record is removed when the downKey is pushed
             self.left2['bg'] = 'red'
 
         if (self.select == 4):
             # TODO: flag student4
-            self.n4.set(self.queueTest()) # ensure that the record is removed when the downKey is pushed
             self.right2['bg'] = 'red'
 
 #-------------------------------------------------------------------------------
