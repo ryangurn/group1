@@ -1,18 +1,12 @@
-Group 1 - Cold Calling Assistant 
-(basic structure for now...)
-# Roster.py
+## Main Features (Wiki Links)
+# [Roster.py](https://github.com/ryangurn/group1/wiki/Roster-(Class))
 Data structure for Student and Roster Class objects. A roster is a group of students. 
 * Interacts with
   * csvtest.txt
   * tsvtest.txt ((may be formatted incorrectly))
-# StudentQueue.py
-A module that uses the objects created by the Roster and generate a queue for the Cold Calling Assistant.
-Takes in the students and randomize their order before adding them into the queue.
-Retrieves the students ondeck and replaces ondeck students when needed with the next in queue.
-# main.py 
- Placeholder name for a program to putting student objects into a queue and retrieving. 
-* Interacts with
-  * queue.csv 
-  * students.csv 
-# guiprototype.py
+
+# [StudentQueue.py](https://github.com/ryangurn/group1/wiki/StudentQueue-(Class))
+Data structure for storing the students in shuffled order. 
+
+# [Gui.py](https://github.com/ryangurn/group1/wiki/Gui-(Class))
 Framework GUI that displays 4 names (with space for pictures, other text features) and rotates highlighting based on key commands.
