@@ -46,7 +46,7 @@ def main():
         StudentQueue.export_queue_during(studentQ,deck)
     #print(q.qsize())
     
-    StudentQueue.export_queue_after(studentQ)
+    StudentQueue.export_queue_after(studentQ,deck)
 
 if __name__=="__main__":
     main()

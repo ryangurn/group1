@@ -1,4 +1,4 @@
-#queue.py
+#StudentQueue.py
 
 import queue
 import Roster
@@ -6,7 +6,7 @@ import random
 import os
 import csv
 import copy
-#os.path.isfile('./queue.csv')
+
 
 #check wich file to start
 #returns a queue for the deck
@@ -69,8 +69,11 @@ def export_queue_during(studentQ,deck):
             out = tempQ.get()
             filewriter.writerow([out.first, out.last,out.ID,out.email,out.phonetic,out.reveal])
 
+    csvfile.close()
 #save after
-def export_queue_after(studentQ):
+def export_queue_after(studentQ,deck):
+    #returns on deck students to queue
+    deck_to_queue(studentQ,deck)
     size = studentQ.qsize()
     with open('queue.csv', 'w') as csvfile:
         filewriter = csv.writer(csvfile)
@@ -78,30 +81,43 @@ def export_queue_after(studentQ):
         for i in range(size):
             out = studentQ.get()
             filewriter.writerow([out.first, out.last,out.ID,out.email,out.phonetic,out.reveal])
+    csvfile.close()
 
 def remove_student(s_num,deck,studentQ):
     #takes the number selected from the deck
     #takes the next student in queue and replace it with the selected
     #the student that was removed is placed at the end of the queue
     
+    #TO DO ----- add flags
+    
     #decrement for list's index
     s_num -= 1
-    deck[s_num] = studentQ.get()
+    #place the student at the end of the queue
     studentQ.put(deck[s_num])
+    deck[s_num] = studentQ.get()
+    #studentQ.put(deck[s_num])
     
     return deck
 
+def deck_to_queue(studentQ,deck):
+    #used to return the on deck students to queue
+    for i in deck:
+        studentQ.put(i)
+
 def on_deck(studentQ):
+    #students are removed from queue
+    #and placed on deck
     
     student1 = studentQ.get()
     student2 = studentQ.get()
     student3 = studentQ.get()
     student4 = studentQ.get()
     #places those students end of the queue
-    studentQ.put(student1)
-    studentQ.put(student2)
-    studentQ.put(student3)
-    studentQ.put(student4)
+#    studentQ.put(student1)
+#    studentQ.put(student2)
+#    studentQ.put(student3)
+#    studentQ.put(student4)
+
     return student1, student2 , student3, student4
 
 
