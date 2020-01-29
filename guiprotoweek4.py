@@ -88,6 +88,7 @@ class coldCallGui:
         self.n4 = StringVar()
 
         # names are set with the .set() command, queueTest() finds next name in queue
+        # TODO: initialize the stringVars w/ the first four names
         self.n1.set(self.queueTest())
         self.n2.set(self.queueTest())
         self.n3.set(self.queueTest())
