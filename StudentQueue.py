@@ -62,7 +62,7 @@ def export_queue_during(studentQ,deck):
     size = tempQ.qsize()
     with open('queue.csv', 'w') as csvfile:
         filewriter = csv.writer(csvfile)
-        #filewriter.writerow(['First', 'Last','UO ID','Email','Phonetic','Reveal'])
+        filewriter.writerow(['First', 'Last','UO ID','Email','Phonetic','Reveal'])
         for d in range(4):
             filewriter.writerow([deck[d].first, deck[d].last,deck[d].ID,deck[d].email,deck[d].phonetic,deck[d].reveal])
         for i in range(size-4):
@@ -77,7 +77,7 @@ def export_queue_after(studentQ,deck):
     size = studentQ.qsize()
     with open('queue.csv', 'w') as csvfile:
         filewriter = csv.writer(csvfile)
-        #filewriter.writerow(['First', 'Last','UO ID','Email','Phonetic','Reveal'])
+        filewriter.writerow(['First', 'Last','UO ID','Email','Phonetic','Reveal'])
         for i in range(size):
             out = studentQ.get()
             filewriter.writerow([out.first, out.last,out.ID,out.email,out.phonetic,out.reveal])

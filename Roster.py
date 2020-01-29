@@ -81,6 +81,7 @@ class Roster:
             
 			with open(filename) as csv_file: # opens the file
 				csv_reader = csv.reader(csv_file, delimiter=delim) # reads the csv data
+				next(csv_reader) #skips first line
 				for row in csv_reader: # loops through each row
 					self.students.append(Student(row[0], row[1], row[2], row[3], row[4], row[5])) # appends the data into the list
 				csv_file.close() # closes the file
