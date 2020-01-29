@@ -1,5 +1,5 @@
 #
-# Sean Wilson - 1/20/19
+# Sean Wilson - 1/20/20
 # -GUI prototype v1.0
 # -Group1 cis422 @ U of O W'20
 #
@@ -70,7 +70,9 @@ class coldCallGui:
         self.delim = "csv"
 
         # size of main window (short and wide for top of screen)
-        self.main.geometry("1500x200")
+        # getting size of user-specific screen width
+        self.width = self.main.winfo_screenwidth()
+        self.main.geometry(f"{self.width}x200")
         self.main.title("Welcome to Cold-Call Assist")
 
         # 4 frames for the 4 students on deck
@@ -112,10 +114,10 @@ class coldCallGui:
 
         # adding the buttons to display the pictures
         # TODO: need a function to take name and return path to picture file
-        self.image1 = PhotoImage(file='./head2.png')
-        self.image2 = PhotoImage(file='./head2.png')
-        self.image3 = PhotoImage(file='./head2.png')
-        self.image4 = PhotoImage(file='./head2.png')
+        self.image1 = PhotoImage(file=self.path2image(self.n1))
+        self.image2 = PhotoImage(file=self.path2image(self.n2))
+        self.image3 = PhotoImage(file=self.path2image(self.n3))
+        self.image4 = PhotoImage(file=self.path2image(self.n4))
         self.piclabel1 = Label(self.left, image=self.image1)
         self.piclabel2 = Label(self.right, image=self.image2)
         self.piclabel3 = Label(self.left2, image=self.image3)
@@ -172,7 +174,7 @@ class coldCallGui:
     def usePics(self):
         print ("Use Pictures")
 
-        self.main.geometry("1500x200")
+        self.main.geometry(f"{self.width}x200")
 
         # add images to frames
         self.piclabel1.pack()
@@ -185,7 +187,7 @@ class coldCallGui:
     def noPics(self):
         print ("Do Not Use Pictures")
 
-        self.main.geometry("1500x50")
+        self.main.geometry(f"{self.width}x50")
 
         # add images to frames
         self.piclabel1.pack_forget()
@@ -202,7 +204,10 @@ class coldCallGui:
         # outputs path to that names respective picture
         print (name.get() + " path")
 
-        return "./head4.png"
+        if (name.get() == "Sean Wilson" or name.get() == "Cory Ingram"):
+            return "./head4.png"
+        else:
+            return "./head2.png"
 
 #-------------------------------------------------------------------------------
 #---Key-Binding Functions-------------------------------------------------------
