@@ -8,6 +8,7 @@
 
 # import all the the tkinter library has to offer
 from tkinter import *
+import StudentQueue
 
 #-------------------------------------------------------------------------------
 #---GUI Class-------------------------------------------------------------------
@@ -21,12 +22,15 @@ class coldCallGui:
 
     def __init__(self):
 
-        # !!! TODO: FOR TESTING PURPOSES ONLY !!!
-        self.head = -1
+        self.studentList = StudentQueue.students_list('queue.csv', True)
+        self.studentQ = StudentQueue.create_queue(self.studentList)
+        self.s1, self.s2, self.s3, self.s4 = StudentQueue.on_deck(self.studentQ)
+        self.deck = [self.s1, self.s2, self.s3, self.s4]
+        #self.head = -1
         # self.queue = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]
         # self.max = 11
-        self.queue = ["Alex Archer", "Naser Alkhateri", "Cory Ingram", "Ryan Gurnick", "Sean Wilson"]
-        self.max = 5
+        #self.queue = ["Alex Archer", "Naser Alkhateri", "Cory Ingram", "Ryan Gurnick", "Sean Wilson"]
+        #self.max = 5
         # !!! TODO: FOR TESTING PURPOSES ONLY !!!
 
         # main window
@@ -89,10 +93,10 @@ class coldCallGui:
 
         # names are set with the .set() command, queueTest() finds next name in queue
         # TODO: initialize the stringVars w/ the first four names
-        self.n1.set(self.queueTest())
-        self.n2.set(self.queueTest())
-        self.n3.set(self.queueTest())
-        self.n4.set(self.queueTest())
+        self.n1.set('{self.deck[0].first} {self.deck[0].last}'.format(self=self))
+        self.n2.set('{self.deck[1].first} {self.deck[1].last}'.format(self=self))
+        self.n3.set('{self.deck[2].first} {self.deck[2].last}'.format(self=self))
+        self.n4.set('{self.deck[3].first} {self.deck[3].last}'.format(self=self))
 
         # select autmatically starts at the first student, so highlight student1
         self.left['bg'] = 'yellow'
@@ -274,42 +278,46 @@ class coldCallGui:
         #indicate the selected student was selected by coloring frame green
         # TODO: here is where the name will be swapped w/ next student in queue
         if (self.select == 1):
-            self.n1.set(self.queueTest())
+            self.deck = StudentQueue.remove_student(self.select, self.deck, self.studentQ)
+            self.n1.set('{self.deck[0].first} {self.deck[0].last}'.format(self=self))
 
             # TODO: need a function to take name and return path to picture file
-            new_image = PhotoImage(file=self.path2image(self.n1))
-            self.piclabel1.configure(image=new_image)
-            self.piclabel1.image = new_image
+            #new_image = PhotoImage(file=self.path2image(self.n1))
+            #self.piclabel1.configure(image=new_image)
+            #self.piclabel1.image = new_image
 
             self.left['bg'] = 'green'
 
         if (self.select == 2):
-            self.n2.set(self.queueTest())
+            self.deck = StudentQueue.remove_student(self.select, self.deck, self.studentQ)
+            self.n2.set('{self.deck[1].first} {self.deck[1].last}'.format(self=self))
 
             # TODO: need a function to take name and return path to picture file
-            new_image = PhotoImage(file=self.path2image(self.n2))
-            self.piclabel2.configure(image=new_image)
-            self.piclabel2.image = new_image
+            #new_image = PhotoImage(file=self.path2image(self.n2))
+            #self.piclabel2.configure(image=new_image)
+            #self.piclabel2.image = new_image
 
             self.right['bg'] = 'green'
 
         if (self.select == 3):
-            self.n3.set(self.queueTest())
+            self.deck = StudentQueue.remove_student(self.select, self.deck, self.studentQ)
+            self.n3.set('{self.deck[2].first} {self.deck[2].last}'.format(self=self))
 
             # TODO: need a function to take name and return path to picture file
-            new_image = PhotoImage(file=self.path2image(self.n3))
-            self.piclabel3.configure(image=new_image)
-            self.piclabel3.image = new_image
+            #new_image = PhotoImage(file=self.path2image(self.n3))
+            #self.piclabel3.configure(image=new_image)
+            #self.piclabel3.image = new_image
 
             self.left2['bg'] = 'green'
 
         if (self.select == 4):
-            self.n4.set(self.queueTest())
+            self.deck = StudentQueue.remove_student(self.select, self.deck, self.studentQ)
+            self.n4.set('{self.deck[3].first} {self.deck[3].last}'.format(self=self))
 
             # TODO: need a function to take name and return path to picture file
-            new_image = PhotoImage(file=self.path2image(self.n4))
-            self.piclabel4.configure(image=new_image)
-            self.piclabel4.image = new_image
+            #new_image = PhotoImage(file=self.path2image(self.n4))
+            #self.piclabel4.configure(image=new_image)
+            #self.piclabel4.image = new_image
 
             self.right2['bg'] = 'green'
 
@@ -322,45 +330,49 @@ class coldCallGui:
         # TODO: here is where the name will marked as flagged
         if (self.select == 1):
             # TODO: flag student1
-            self.n1.set(self.queueTest())
+            self.deck = StudentQueue.remove_student(self.select, self.deck, self.studentQ)
+            self.n1.set('{self.deck[0].first} {self.deck[0].last}'.format(self=self))
 
             # TODO: need a function to take name and return path to picture file
-            new_image = PhotoImage(file=self.path2image(self.n1))
-            self.piclabel1.configure(image=new_image)
-            self.piclabel1.image = new_image
+            #new_image = PhotoImage(file=self.path2image(self.n1))
+            #self.piclabel1.configure(image=new_image)
+            #self.piclabel1.image = new_image
 
             self.left['bg'] = 'red'
 
         if (self.select == 2):
             # TODO: flag student2
-            self.n2.set(self.queueTest())
+            self.deck = StudentQueue.remove_student(self.select, self.deck, self.studentQ)
+            self.n2.set('{self.deck[1].first} {self.deck[1].last}'.format(self=self))
 
             # TODO: need a function to take name and return path to picture file
-            new_image = PhotoImage(file=self.path2image(self.n2))
-            self.piclabel2.configure(image=new_image)
-            self.piclabel2.image = new_image
+            #new_image = PhotoImage(file=self.path2image(self.n2))
+            #self.piclabel2.configure(image=new_image)
+            #self.piclabel2.image = new_image
 
             self.right['bg'] = 'red'
 
         if (self.select == 3):
             # TODO: flag student3
-            self.n3.set(self.queueTest())
+            self.deck = StudentQueue.remove_student(self.select, self.deck, self.studentQ)
+            self.n3.set('{self.deck[2].first} {self.deck[2].last}'.format(self=self))
 
             # TODO: need a function to take name and return path to picture file
-            new_image = PhotoImage(file=self.path2image(self.n3))
-            self.piclabel3.configure(image=new_image)
-            self.piclabel3.image = new_image
+            #new_image = PhotoImage(file=self.path2image(self.n3))
+            #self.piclabel3.configure(image=new_image)
+            #self.piclabel3.image = new_image
 
             self.left2['bg'] = 'red'
 
         if (self.select == 4):
             # TODO: flag student4
-            self.n4.set(self.queueTest())
+            self.deck = StudentQueue.remove_student(self.select, self.deck, self.studentQ)
+            self.n4.set('{self.deck[3].first} {self.deck[3].last}'.format(self=self))
 
             # TODO: need a function to take name and return path to picture file
-            new_image = PhotoImage(file=self.path2image(self.n4))
-            self.piclabel4.configure(image=new_image)
-            self.piclabel4.image = new_image
+            #new_image = PhotoImage(file=self.path2image(self.n4))
+            #self.piclabel4.configure(image=new_image)
+            #self.piclabel4.image = new_image
 
             self.right2['bg'] = 'red'
 

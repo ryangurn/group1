@@ -11,16 +11,15 @@ import copy
 #check wich file to start
 #returns a queue for the deck
 
-def students_list():
+def students_list(filename, startbool):
     student_roster = Roster.Roster()
-    isQueue = os.path.isfile('./queue.csv')
 
     #checks if there is an updated queue
-    if isQueue:
-        student_roster.import_roster('queue.csv')
+    if startbool:
+        student_roster.import_roster(filename)
     
     else:
-        student_roster.import_roster('csvtest.csv')
+        student_roster.import_roster(filename)
             #send list to randomize
         student_roster.students = randomizer(student_roster.students)
     return student_roster.students
@@ -61,7 +60,7 @@ def export_queue_during(studentQ,deck):
     tempQ.queue = copy.deepcopy(studentQ.queue)
     size = tempQ.qsize()
     with open('queue.csv', 'w') as csvfile:
-        filewriter = csv.writer(csvfile)
+        filewriter = csv.writer(csvfile, lineterminator='\n')
         filewriter.writerow(['First', 'Last','UO ID','Email','Phonetic','Reveal'])
         for d in range(4):
             filewriter.writerow([deck[d].first, deck[d].last,deck[d].ID,deck[d].email,deck[d].phonetic,deck[d].reveal])
@@ -76,7 +75,7 @@ def export_queue_after(studentQ,deck):
     deck_to_queue(studentQ,deck)
     size = studentQ.qsize()
     with open('queue.csv', 'w') as csvfile:
-        filewriter = csv.writer(csvfile)
+        filewriter = csv.writer(csvfile, lineterminator='\n')
         filewriter.writerow(['First', 'Last','UO ID','Email','Phonetic','Reveal'])
         for i in range(size):
             out = studentQ.get()

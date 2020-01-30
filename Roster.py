@@ -8,7 +8,7 @@ import os.path
 
 ## TODO: **Can this automatically detect which format is being uploaded during the read?** 
 # Change between ',' and '\t' for csv or tsv
-delim = '\t'
+delim = ','
 
 class Student:
 	"""
