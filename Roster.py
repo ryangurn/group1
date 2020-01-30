@@ -88,7 +88,7 @@ class Roster:
 		else: # if the file does not exist
 			print('File does not exist!') # print warning
 			
-	def export_roster(self):
+	def export_roster(self, filename):
 		"""
 		Allows the roster to be exported to TSV/CSV
 		args:
@@ -96,7 +96,7 @@ class Roster:
 		globals used:
 		delim -- this will determine what deliminator is used and thus if its using TSV or CSV
 		"""
-		expfile = open('export_roster.csv', 'w') # open the file stream
+		expfile = open(filename, 'w') # open the file stream
 		for student in self.students: # loop through the students stored in the roster
 			# output the file information with the correct delim and student
 			expfile.write('{student.first}{c}{student.last}{c}{student.ID}{c}{student.email}{c}{student.phonetic}{c}{student.reveal}\n'.format(student=student, c=delim))
