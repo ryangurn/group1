@@ -61,9 +61,10 @@ class Roster:
 		"""
 		self.students = [] # list of student objects
 		
-    def import_roster(self, filename):
-        """
-        Allows the roster to be imported from CSV/TSV
+	def import_roster(self, filename):
+        
+		"""
+		Allows the roster to be imported from CSV/TSV
         args:
         filename -- the location at which the file to be imported is stored
         globals used:
@@ -74,14 +75,15 @@ class Roster:
         #csv files ends with .csv tsv files ends with .tsv
         #temp delim switch
         
-        self.students.clear() # empties the student list on import
-        if os.path.exists(filename): # checks if the specified file exists
-            file_explode = filename.split(".")
-            if file_explode[1] == 'csv':
-                delim = ','
-            elif filename[1] == 'tsv':
-                delim = "\t"
-            with open(filename) as csv_file: # opens the file
+		self.students.clear() # empties the student list on import
+		
+		if os.path.exists(filename): # checks if the specified file exists
+			file_explode = filename.split(".")
+			if file_explode[1] == 'csv':
+				delim = ','
+			elif filename[1] == 'tsv':
+				delim = "\t"
+			with open(filename) as csv_file: # opens the file
 				csv_reader = csv.reader(csv_file, delimiter=delim) # reads the csv data
 				next(csv_reader) #skips first line
 				for row in csv_reader: # loops through each row
@@ -111,4 +113,3 @@ class Roster:
 		None
 		"""
 		return '{self.students}'.format(self=self)
-
