@@ -165,24 +165,17 @@ def deck_to_queue(studentQ,deck):
 
 def on_deck(studentQ):
     """
-        reurns the first 4 objects from the queue
+        returns a list of the first 4 objects in queue
         Args:
         studentQ -- a queue of students
-        
+        deck -- list of 4 objects
     """
+    deck = []
+
     #students are removed from queue
     #and placed on deck
-    
-    student1 = studentQ.get()
-    student2 = studentQ.get()
-    student3 = studentQ.get()
-    student4 = studentQ.get()
-    #places those students end of the queue
-#    studentQ.put(student1)
-#    studentQ.put(student2)
-#    studentQ.put(student3)
-#    studentQ.put(student4)
-
-    return student1, student2 , student3, student4
+    for i in range(4):
+        deck.append(studentQ.get())
 
 
+    return deck
