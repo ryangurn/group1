@@ -33,8 +33,8 @@ class coldCallGui:
 
         self.studentList = StudentQueue.students_list('queue.csv', True)
         self.studentQ = StudentQueue.create_queue(self.studentList)
-        self.s1, self.s2, self.s3, self.s4 = StudentQueue.on_deck(self.studentQ)
-        self.deck = [self.s1, self.s2, self.s3, self.s4]
+
+        self.deck = StudentQueue.on_deck(self.studentQ)
         self.r = Roster.Roster()
         self.r.import_roster('queue.csv')
         #self.head = -1
@@ -131,10 +131,10 @@ class coldCallGui:
 
         # adding the buttons to display the pictures
         # TODO: need a function to take name and return path to picture file
-        self.image1 = PhotoImage(file=self.path2image(self.n1))
-        self.image2 = PhotoImage(file=self.path2image(self.n2))
-        self.image3 = PhotoImage(file=self.path2image(self.n3))
-        self.image4 = PhotoImage(file=self.path2image(self.n4))
+        self.image1 = PhotoImage(file=self.path2image(self.deck[0]))
+        self.image2 = PhotoImage(file=self.path2image(self.deck[1]))
+        self.image3 = PhotoImage(file=self.path2image(self.deck[2]))
+        self.image4 = PhotoImage(file=self.path2image(self.deck[3]))
         self.piclabel1 = Label(self.left, image=self.image1)
         self.piclabel2 = Label(self.right, image=self.image2)
         self.piclabel3 = Label(self.left2, image=self.image3)
@@ -236,15 +236,16 @@ class coldCallGui:
 #---name-to-image-path Function-------------------------------------------------
 #-------------------------------------------------------------------------------
 
-    def path2image(self, name):
+    def path2image(self, student):
         # takes a stringVar() as an arg (can be converted to string with get())
         # outputs path to that names respective picture
-        print (name.get() + " path")
+        print (student.reveal, "reveal")
+        print (student.ID, "id")
 
-        if (name.get() == "Sean Wilson" or name.get() == "Cory Ingram"):
-            return "./head4.png"
+        if student.reveal == 0:
+            return "./image/default.png"
         else:
-            return "./head2.png"
+            return "./image/" + str(student.ID) + ".png"
 
 #-------------------------------------------------------------------------------
 #---Key-Binding Functions-------------------------------------------------------
