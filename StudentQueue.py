@@ -1,3 +1,6 @@
+# queue data structure for the Logic
+# Naser Alkhateri
+
 #StudentQueue.py
 
 import queue
@@ -12,6 +15,13 @@ import copy
 #returns a queue for the deck
 
 def students_list(filename, startbool):
+    """
+        Chooses the appropriate file to import
+        Returns a list of objects from the imported file
+        Args:
+        startbool: whether the file exists True/False
+        filename: a string of the filename
+    """
     student_roster = Roster.Roster()
 
     #checks if there is an updated queue
@@ -26,6 +36,12 @@ def students_list(filename, startbool):
 
 #create_queue
 def create_queue(list):
+    """
+        Takes in a list of object and places it in a queue
+        then returns queue
+        Args:
+        list -- a list of student objects
+    """
     #takes in a list and returns a queue
     studentQ = queue.Queue()
     
@@ -36,7 +52,13 @@ def create_queue(list):
 #randomizer for new queue
 #takes a list of objects randomizes first half
 def randomizer(studentList):
-    
+    """
+        Takes the list of objects and shuffles the first half
+        Args:
+        studentList -- list of Student objects
+        tempList -- a list that takes half of studentList
+        first_half -- integer of the half of the list's size
+    """
     first_half = len(studentList) // 2
     tempList = []
     for i in range(first_half):
@@ -54,6 +76,16 @@ def randomizer(studentList):
 #useful if user interupts the deck
 
 def export_queue_during(studentQ,deck):
+    """
+        updates the queue's csv/tsv file while on deck is updated
+        Args:
+        studentQ -- a queue of students
+        deck -- list of 4 student objects
+        tempQ -- a copy of studentQ
+        size -- Queue's size
+        
+    """
+    
     #places on deck at the start of the queue.csv
     #to keep same students on deck for next use
     tempQ = queue.Queue()
@@ -71,6 +103,15 @@ def export_queue_during(studentQ,deck):
     csvfile.close()
 #save after
 def export_queue_after(studentQ,deck):
+    """
+        updates the queue's csv/tsv file before a successful exit
+        Args:
+        studentQ -- a queue of students
+        deck -- list of 4 student objects
+        tempQ -- a copy of studentQ
+        size -- Queue's size
+        
+    """
     #returns on deck students to queue
     deck_to_queue(studentQ,deck)
     size = studentQ.qsize()
@@ -83,6 +124,18 @@ def export_queue_after(studentQ,deck):
     csvfile.close()
 
 def remove_student(s_num,deck,studentQ):
+    
+    """
+        Removes a Student object from deck and replaces it
+        with the next object in queue
+        Args:
+        s_num -- a number of the object's location
+        deck -- list of 4 student objects
+        studentQ -- a queue of students
+        
+    """
+    
+    
     #takes the number selected from the deck
     #takes the next student in queue and replace it with the selected
     #the student that was removed is placed at the end of the queue
@@ -99,11 +152,24 @@ def remove_student(s_num,deck,studentQ):
     return deck
 
 def deck_to_queue(studentQ,deck):
+    """
+        takes the the deck and return it to the queue
+        Args:
+        deck -- list of 4 student objects
+        studentQ -- a queue of students
+        
+    """
     #used to return the on deck students to queue
     for i in deck:
         studentQ.put(i)
 
 def on_deck(studentQ):
+    """
+        reurns the first 4 objects from the queue
+        Args:
+        studentQ -- a queue of students
+        
+    """
     #students are removed from queue
     #and placed on deck
     
