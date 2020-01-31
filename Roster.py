@@ -35,6 +35,8 @@ class Student:
         self.email = email
         self.phonetic = phonetic
         self.reveal = reveal
+        self.noFlag = 0
+        self.noCalled = 0
 		
     def __repr__(self):
         """
@@ -82,6 +84,8 @@ class Roster:
                 delim = ','
             elif file_explode[1] == 'tsv':
                 delim = "\t"
+            elif file_explode[1] == 'txt':
+                delim = ','
             with open(filename) as csv_file: # opens the file
                 csv_reader = csv.reader(csv_file, delimiter=delim) # reads the csv data
                 next(csv_reader) #skips first line
