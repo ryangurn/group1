@@ -1,0 +1,4 @@
+First,Last,UO ID,Email,Phonetic,Reveal
+Bob,Smith,123456789,BobS@uoregon.edu,bob smith,0
+Bill,Johnson,000111222,BillJ@uoregon.edu,bill johnson,0
+Ann,Williams,987654321,AnnW@uoregon.edu,ann williams,0

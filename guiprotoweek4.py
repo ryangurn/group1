@@ -11,6 +11,7 @@ from tkinter import *
 from tkinter import filedialog
 import StudentQueue
 import os
+import os.path
 import Roster
 
 #-------------------------------------------------------------------------------
@@ -31,12 +32,29 @@ class coldCallGui:
 
     def __init__(self):
 
-        self.studentList = StudentQueue.students_list('csvtest.csv', True)
-        self.studentQ = StudentQueue.create_queue(self.studentList)
+        if os.path.exists('data.csv'):
+            self.studentList = StudentQueue.students_list('data.csv', True)
+            self.studentQ = StudentQueue.create_queue(self.studentList)
 
-        self.deck = StudentQueue.on_deck(self.studentQ)
-        self.r = Roster.Roster()
-        self.r.import_roster('csvtest.csv')
+            self.deck = StudentQueue.on_deck(self.studentQ)
+            self.r = Roster.Roster()
+            self.r.import_roster('data.csv')
+        else:
+            data = open('data.csv', 'w')
+            data.write('first,last,ID,email,phonetic,reveal\n')
+            data.write('place,holder,000000001,placeholder@placeholder,place holder,0\n')
+            data.write('place,holder,000000002,placeholder@placeholder,place holder,0\n')
+            data.write('place,holder,000000003,placeholder@placeholder,place holder,0\n')
+            data.write('place,holder,000000004,placeholder@placeholder,place holder,0\n')
+            data.write('place,holder,000000005,placeholder@placeholder,place holder,0\n')
+            data.close()
+            self.studentList = StudentQueue.students_list('data.csv', True)
+            self.studentQ = StudentQueue.create_queue(self.studentList)
+
+            self.deck = StudentQueue.on_deck(self.studentQ)
+            self.r = Roster.Roster()
+            self.r.import_roster('data.csv')
+            
         #self.head = -1
         # self.queue = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]
         # self.max = 11
@@ -56,10 +74,12 @@ class coldCallGui:
         optionmenu = Menu(menubar, tearoff=0)
         # create submenu for choosing picture functionality
         picturemenu = Menu(optionmenu, tearoff=0)
+        # create submenu for exporting roster
+        exportmenu = Menu(filemenu, tearoff=0)
 
         # file menu commands
         filemenu.add_command(label="Import Roster", command=self.importRoster)
-        filemenu.add_command(label="Export Roster", command=self.exportRoster)
+        filemenu.add_cascade(label="Export Roster As", menu=exportmenu)
         filemenu.add_separator()
         filemenu.add_command(label="Exit", command=self.main.quit)
 
@@ -70,6 +90,11 @@ class coldCallGui:
         # option menu submenu commands
         picturemenu.add_command(label="Use Pictures", command=self.usePics)
         picturemenu.add_command(label="Do Not Use Pictures", command=self.noPics)
+        
+        # export menu commands
+        exportmenu.add_command(label="csv", command=self.exportcsv)
+        exportmenu.add_command(label="tsv", command=self.exporttsv)
+        exportmenu.add_command(label="txt", command=self.exporttxt)
 
         #add cascading menus to menubar labels
         menubar.add_cascade(label="File", menu=filemenu)
@@ -192,25 +217,25 @@ class coldCallGui:
 
 #-------------------------------------------------------------------------------
 
-    def exportRoster(self):
+    def exportcsv(self):
         self.main.filename = filedialog.asksaveasfilename(initialdir = CWD,title = "Select file",filetypes = (("csv files",".csv"),("all files","*.*")), defaultextension='.csv')
         if self.main.filename:
-            self.r.export_roster(self.main.filename)
+            self.r.export_roster(self.main.filename, ',')
 
 
 #-------------------------------------------------------------------------------
 
-    def changeDelimTSV(self):
-        print ("TSV was selected")
-
-        self.delim = "tsv"
+    def exporttsv(self):
+        self.main.filename = filedialog.asksaveasfilename(initialdir = CWD,title = "Select file",filetypes = (("tsv files",".tsv"),("all files","*.*")), defaultextension='.tsv')
+        if self.main.filename:
+            self.r.export_roster(self.main.filename, '\t')
 
 #-------------------------------------------------------------------------------
 
-    def changeDelimCSV(self):
-        print ("CSV was selected")
-
-        self.delim = "csv"
+    def exporttxt(self):
+        self.main.filename = filedialog.asksaveasfilename(initialdir = CWD,title = "Select file",filetypes = (("text files",".txt"),("all files","*.*")), defaultextension='.txt')
+        if self.main.filename:
+            self.r.export_roster(self.main.filename, ',')
 
 #-------------------------------------------------------------------------------
 
@@ -249,9 +274,12 @@ class coldCallGui:
         print (student.ID, "id")
 
         if student.reveal == 0:
-            return "./image/default.png"
+            return "./images/default.png"
         else:
-            return "./images/" + str(student.ID) + ".png"
+            if os.path.exists("./images/" + str(student.ID) + ".png"):
+                return "./images/" + str(student.ID) + ".png"
+            else:
+                return "./images/default.png"
 
 #-------------------------------------------------------------------------------
 #---Key-Binding Functions-------------------------------------------------------

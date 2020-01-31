@@ -7,8 +7,7 @@ import csv
 import os.path
 
 ## TODO: **Can this automatically detect which format is being uploaded during the read?** 
-# Change between ',' and '\t' for csv or tsv
-delim = ','
+
 
 class Student:
     """
@@ -78,7 +77,6 @@ class Roster:
         
         self.students.clear() # empties the student list on import
         if os.path.exists(filename): # checks if the specified file exists
-            global delim
             file_explode = filename.split(".")
             if file_explode[1] == 'csv':
                 delim = ','
@@ -89,13 +87,23 @@ class Roster:
             with open(filename) as csv_file: # opens the file
                 csv_reader = csv.reader(csv_file, delimiter=delim) # reads the csv data
                 next(csv_reader) #skips first line
+                count = 0
                 for row in csv_reader: # loops through each row
-                    self.students.append(Student(row[0], row[1], row[2], row[3], row[4], row[5])) # appends the data into the list
+                    try:
+                        self.students.append(Student(row[0], row[1], row[2], row[3], row[4], row[5])) # appends the data into the list
+                    except IndexError:    
+                        self.students.append(Student('place', 'holder', 000000000, 'place@holder', 'place holder', 0))
+                    count = count + 1
+                if count < 4:
+                    self.students.append(Student('place', 'holder', 000000000, 'place@holder', 'place holder', 0))
+                    self.students.append(Student('place', 'holder', 000000000, 'place@holder', 'place holder', 0))
+                    self.students.append(Student('place', 'holder', 000000000, 'place@holder', 'place holder', 0))
+                    self.students.append(Student('place', 'holder', 000000000, 'place@holder', 'place holder', 0))
                 csv_file.close() # closes the file
         else: # if the file does not exist
             print('File does not exist!') # print warning
 			
-    def export_roster(self, filename):
+    def export_roster(self, filename, dlm):
         """
         Allows the roster to be exported to TSV/CSV
         args:
@@ -104,9 +112,10 @@ class Roster:
         delim -- this will determine what deliminator is used and thus if its using TSV or CSV
         """
         expfile = open(filename, 'w') # open the file stream
+        expfile.write('first{c}last{c}ID{c}email{c}phonetic{c}reveal\n'.format(c=dlm))
         for student in self.students: # loop through the students stored in the roster
             # output the file information with the correct delim and student
-            expfile.write('{student.first}{c}{student.last}{c}{student.ID}{c}{student.email}{c}{student.phonetic}{c}{student.reveal}\n'.format(student=student, c=delim))
+            expfile.write('{student.first}{c}{student.last}{c}{student.ID}{c}{student.email}{c}{student.phonetic}{c}{student.reveal}\n'.format(student=student, c=dlm))
         expfile.close()	# close the file stream
 
     def __str__(self):

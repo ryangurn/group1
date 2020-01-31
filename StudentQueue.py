@@ -91,7 +91,7 @@ def export_queue_during(studentQ,deck):
     tempQ = queue.Queue()
     tempQ.queue = copy.deepcopy(studentQ.queue)
     size = tempQ.qsize()
-    with open('queue.csv', 'w') as csvfile:
+    with open('data.csv', 'w') as csvfile:
         filewriter = csv.writer(csvfile, lineterminator='\n')
         filewriter.writerow(['First', 'Last','UO ID','Email','Phonetic','Reveal'])
         for d in range(4):
@@ -115,7 +115,7 @@ def export_queue_after(studentQ,deck):
     #returns on deck students to queue
     deck_to_queue(studentQ,deck)
     size = studentQ.qsize()
-    with open('queue.csv', 'w') as csvfile:
+    with open('data.csv', 'w') as csvfile:
         filewriter = csv.writer(csvfile, lineterminator='\n')
         filewriter.writerow(['First', 'Last','UO ID','Email','Phonetic','Reveal'])
         for i in range(size):
