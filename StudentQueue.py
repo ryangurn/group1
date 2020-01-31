@@ -147,7 +147,7 @@ def remove_student(s_num,deck,studentQ):
     #place the student at the end of the queue
     studentQ.put(deck[s_num])
     deck[s_num] = studentQ.get()
-    #studentQ.put(deck[s_num])
+    studentQ.put(deck[s_num])
     
     return deck
 
