@@ -27,7 +27,7 @@ def students_list(filename, startbool):
     #checks if there is an updated queue
     if startbool:
         student_roster.import_roster(filename)
-    
+
     else:
         student_roster.import_roster(filename)
             #send list to randomize
@@ -44,7 +44,7 @@ def create_queue(list):
     """
     #takes in a list and returns a queue
     studentQ = queue.Queue()
-    
+
     for i in range(len(list)):
         studentQ.put(list[i])
     return studentQ
@@ -63,7 +63,7 @@ def randomizer(studentList):
     tempList = []
     for i in range(first_half):
         tempList.append(studentList[i])
-    
+
     random.shuffle(tempList)
     for i in range(first_half):
         studentList[i] = tempList[i]
@@ -83,9 +83,9 @@ def export_queue_during(studentQ,deck):
         deck -- list of 4 student objects
         tempQ -- a copy of studentQ
         size -- Queue's size
-        
+
     """
-    
+
     #places on deck at the start of the queue.csv
     #to keep same students on deck for next use
     tempQ = queue.Queue()
@@ -110,7 +110,7 @@ def export_queue_after(studentQ,deck):
         deck -- list of 4 student objects
         tempQ -- a copy of studentQ
         size -- Queue's size
-        
+
     """
     #returns on deck students to queue
     deck_to_queue(studentQ,deck)
@@ -124,7 +124,7 @@ def export_queue_after(studentQ,deck):
     csvfile.close()
 
 def remove_student(s_num,deck,studentQ):
-    
+
     """
         Removes a Student object from deck and replaces it
         with the next object in queue
@@ -132,23 +132,23 @@ def remove_student(s_num,deck,studentQ):
         s_num -- a number of the object's location
         deck -- list of 4 student objects
         studentQ -- a queue of students
-        
+
     """
-    
-    
+
+
     #takes the number selected from the deck
     #takes the next student in queue and replace it with the selected
     #the student that was removed is placed at the end of the queue
-    
+
     #TO DO ----- add flags
-    
+
     #decrement for list's index
     s_num -= 1
     #place the student at the end of the queue
     studentQ.put(deck[s_num])
     deck[s_num] = studentQ.get()
-    studentQ.put(deck[s_num])
-    
+    #studentQ.put(deck[s_num])
+
     return deck
 
 def deck_to_queue(studentQ,deck):
@@ -157,7 +157,7 @@ def deck_to_queue(studentQ,deck):
         Args:
         deck -- list of 4 student objects
         studentQ -- a queue of students
-        
+
     """
     #used to return the on deck students to queue
     for i in deck:

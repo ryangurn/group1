@@ -31,12 +31,12 @@ class coldCallGui:
 
     def __init__(self):
 
-        self.studentList = StudentQueue.students_list('queue.csv', True)
+        self.studentList = StudentQueue.students_list('csvtest.csv', True)
         self.studentQ = StudentQueue.create_queue(self.studentList)
 
         self.deck = StudentQueue.on_deck(self.studentQ)
         self.r = Roster.Roster()
-        self.r.import_roster('queue.csv')
+        self.r.import_roster('csvtest.csv')
         #self.head = -1
         # self.queue = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]
         # self.max = 11
@@ -138,10 +138,7 @@ class coldCallGui:
         self.image3 = PhotoImage(file=self.path2image(self.deck[2]))
         self.image4 = PhotoImage(file=self.path2image(self.deck[3]))
 
-        self.image1.zoom(50, 50)
-        self.image2.zoom(50, 50)
-        self.image3.zoom(50, 50)
-        self.image4.zoom(50, 50)
+
 
 
         self.piclabel1 = Label(self.left, image=self.image1)
@@ -386,9 +383,9 @@ class coldCallGui:
 
             # TODO: need a function to take name and return path to picture file
 
-            new_image = PhotoImage(file=self.path2image(self.deck[3]))
-            self.piclabel4.configure(image=new_image)
-            self.piclabel4.image = new_image
+            new_image = PhotoImage(file=self.path2image(self.deck[0]))
+            self.piclabel1.configure(image=new_image)
+            self.piclabel1.image = new_image
 
             self.left['bg'] = 'red'
 
@@ -400,9 +397,9 @@ class coldCallGui:
 
             # TODO: need a function to take name and return path to picture file
 
-            new_image = PhotoImage(file=self.path2image(self.deck[3]))
-            self.piclabel4.configure(image=new_image)
-            self.piclabel4.image = new_image
+            new_image = PhotoImage(file=self.path2image(self.deck[1]))
+            self.piclabel2.configure(image=new_image)
+            self.piclabel2.image = new_image
 
             self.right['bg'] = 'red'
 
@@ -414,9 +411,9 @@ class coldCallGui:
 
             # TODO: need a function to take name and return path to picture file
 
-            new_image = PhotoImage(file=self.path2image(self.deck[3]))
-            self.piclabel4.configure(image=new_image)
-            self.piclabel4.image = new_image
+            new_image = PhotoImage(file=self.path2image(self.deck[2]))
+            self.piclabel3.configure(image=new_image)
+            self.piclabel3.image = new_image
 
             self.left2['bg'] = 'red'
 
