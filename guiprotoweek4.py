@@ -1,6 +1,6 @@
 #
 # Sean Wilson - 1/20/20
-# -GUI prototype v1.0
+# -GUI prototype v2.0
 # -Group1 cis422 @ U of O W'20
 #
 
@@ -54,7 +54,7 @@ class coldCallGui:
             self.deck = StudentQueue.on_deck(self.studentQ)
             self.r = Roster.Roster()
             self.r.import_roster('data.csv')
-            
+
         #self.head = -1
         # self.queue = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]
         # self.max = 11
@@ -90,7 +90,7 @@ class coldCallGui:
         # option menu submenu commands
         picturemenu.add_command(label="Use Pictures", command=self.usePics)
         picturemenu.add_command(label="Do Not Use Pictures", command=self.noPics)
-        
+
         # export menu commands
         exportmenu.add_command(label="csv", command=self.exportcsv)
         exportmenu.add_command(label="tsv", command=self.exporttsv)
@@ -117,10 +117,10 @@ class coldCallGui:
         self.main.title("Welcome to Cold-Call Assist")
 
         # 4 frames for the 4 students on deck
-        self.left = Frame(self.main, borderwidth=2, relief="solid")
-        self.right = Frame(self.main, borderwidth=2, relief="solid")
-        self.left2 = Frame(self.main, borderwidth=2, relief="solid")
-        self.right2 = Frame(self.main, borderwidth=2, relief="solid")
+        self.frame1 = Frame(self.main, borderwidth=2, relief="solid")
+        self.frame2 = Frame(self.main, borderwidth=2, relief="solid")
+        self.frame3 = Frame(self.main, borderwidth=2, relief="solid")
+        self.frame4 = Frame(self.main, borderwidth=2, relief="solid")
 
         # string variables to store student names
         self.n1 = StringVar()
@@ -136,23 +136,23 @@ class coldCallGui:
         self.n4.set('{self.deck[3].first} {self.deck[3].last}'.format(self=self))
 
         # select autmatically starts at the first student, so highlight student1
-        self.left['bg'] = 'yellow'
+        self.frame1['bg'] = 'yellow'
 
         # labels to be filled with student names
-        self.label1 = Label(self.left, textvariable = self.n1)
-        self.label2 = Label(self.right, textvariable = self.n2)
-        self.label3 = Label(self.left2, textvariable = self.n3)
-        self.label4 = Label(self.right2, textvariable = self.n4)
+        self.label1 = Label(self.frame1, textvariable = self.n1)
+        self.label2 = Label(self.frame2, textvariable = self.n2)
+        self.label3 = Label(self.frame3, textvariable = self.n3)
+        self.label4 = Label(self.frame4, textvariable = self.n4)
         self.label1.pack()
         self.label2.pack()
         self.label3.pack()
         self.label4.pack()
 
         # adding responive scaling to the columns
-        self.left.pack(side="left", expand=True, fill="both")
-        self.right.pack(side="left", expand=True, fill="both")
-        self.left2.pack(side="left", expand=True, fill="both")
-        self.right2.pack(side="left", expand=True, fill="both")
+        self.frame1.pack(side="left", expand=True, fill="both")
+        self.frame2.pack(side="left", expand=True, fill="both")
+        self.frame3.pack(side="left", expand=True, fill="both")
+        self.frame4.pack(side="left", expand=True, fill="both")
 
         # adding the buttons to display the pictures
         # TODO: need a function to take name and return path to picture file
@@ -166,10 +166,10 @@ class coldCallGui:
 
 
 
-        self.piclabel1 = Label(self.left, image=self.image1)
-        self.piclabel2 = Label(self.right, image=self.image2)
-        self.piclabel3 = Label(self.left2, image=self.image3)
-        self.piclabel4 = Label(self.right2, image=self.image4)
+        self.piclabel1 = Label(self.frame1, image=self.image1)
+        self.piclabel2 = Label(self.frame2, image=self.image2)
+        self.piclabel3 = Label(self.frame3, image=self.image3)
+        self.piclabel4 = Label(self.frame4, image=self.image4)
         self.piclabel1.pack()
         self.piclabel2.pack()
         self.piclabel3.pack()
@@ -268,8 +268,7 @@ class coldCallGui:
 #-------------------------------------------------------------------------------
 
     def path2image(self, student):
-        # takes a stringVar() as an arg (can be converted to string with get())
-        # outputs path to that names respective picture
+        # outputs path to students respective picture
         print (student.reveal, "reveal")
         print (student.ID, "id")
 
@@ -289,10 +288,10 @@ class coldCallGui:
         print ("Left key pressed")
 
         #reset all colums color to white
-        self.left['bg'] = 'white'
-        self.right['bg'] = 'white'
-        self.left2['bg'] = 'white'
-        self.right2['bg'] = 'white'
+        self.frame1['bg'] = 'white'
+        self.frame2['bg'] = 'white'
+        self.frame3['bg'] = 'white'
+        self.frame4['bg'] = 'white'
 
         #if select not on leftmost student, move select left
         if(self.select != 1):
@@ -302,13 +301,13 @@ class coldCallGui:
 
         #recolor the frame the select is now on
         if (self.select == 1):
-            self.left['bg'] = 'yellow'
+            self.frame1['bg'] = 'yellow'
         if (self.select == 2):
-            self.right['bg'] = 'yellow'
+            self.frame2['bg'] = 'yellow'
         if (self.select == 3):
-            self.left2['bg'] = 'yellow'
+            self.frame3['bg'] = 'yellow'
         if (self.select == 4):
-            self.right2['bg'] = 'yellow'
+            self.frame4['bg'] = 'yellow'
 
 #-------------------------------------------------------------------------------
 
@@ -316,10 +315,10 @@ class coldCallGui:
         print ("Right key pressed")
 
         #reset all colums color to white
-        self.left['bg'] = 'white'
-        self.right['bg'] = 'white'
-        self.left2['bg'] = 'white'
-        self.right2['bg'] = 'white'
+        self.frame1['bg'] = 'white'
+        self.frame2['bg'] = 'white'
+        self.frame3['bg'] = 'white'
+        self.frame4['bg'] = 'white'
 
         #if select not on rightmost student, move select right
         if(self.select != 4):
@@ -329,13 +328,13 @@ class coldCallGui:
 
         #recolor the frame the select is now on
         if (self.select == 1):
-            self.left['bg'] = 'yellow'
+            self.frame1['bg'] = 'yellow'
         if (self.select == 2):
-            self.right['bg'] = 'yellow'
+            self.frame2['bg'] = 'yellow'
         if (self.select == 3):
-            self.left2['bg'] = 'yellow'
+            self.frame3['bg'] = 'yellow'
         if (self.select == 4):
-            self.right2['bg'] = 'yellow'
+            self.frame4['bg'] = 'yellow'
 
 #-------------------------------------------------------------------------------
 
@@ -355,7 +354,7 @@ class coldCallGui:
             self.piclabel1.configure(image=new_image)
             self.piclabel1.image = new_image
 
-            self.left['bg'] = 'green'
+            self.frame1['bg'] = 'green'
 
         if (self.select == 2):
             self.deck = StudentQueue.remove_student(self.select, self.deck, self.studentQ)
@@ -368,7 +367,7 @@ class coldCallGui:
             self.piclabel2.configure(image=new_image)
             self.piclabel2.image = new_image
 
-            self.right['bg'] = 'green'
+            self.frame2['bg'] = 'green'
 
         if (self.select == 3):
             self.deck = StudentQueue.remove_student(self.select, self.deck, self.studentQ)
@@ -381,7 +380,7 @@ class coldCallGui:
             self.piclabel3.configure(image=new_image)
             self.piclabel3.image = new_image
 
-            self.left2['bg'] = 'green'
+            self.frame3['bg'] = 'green'
 
         if (self.select == 4):
             self.deck = StudentQueue.remove_student(self.select, self.deck, self.studentQ)
@@ -394,7 +393,7 @@ class coldCallGui:
             self.piclabel4.configure(image=new_image)
             self.piclabel4.image = new_image
 
-            self.right2['bg'] = 'green'
+            self.frame4['bg'] = 'green'
 
 #-------------------------------------------------------------------------------
 
@@ -415,7 +414,7 @@ class coldCallGui:
             self.piclabel1.configure(image=new_image)
             self.piclabel1.image = new_image
 
-            self.left['bg'] = 'red'
+            self.frame1['bg'] = 'red'
 
         if (self.select == 2):
             # TODO: flag student2
@@ -429,7 +428,7 @@ class coldCallGui:
             self.piclabel2.configure(image=new_image)
             self.piclabel2.image = new_image
 
-            self.right['bg'] = 'red'
+            self.frame2['bg'] = 'red'
 
         if (self.select == 3):
             # TODO: flag student3
@@ -443,7 +442,7 @@ class coldCallGui:
             self.piclabel3.configure(image=new_image)
             self.piclabel3.image = new_image
 
-            self.left2['bg'] = 'red'
+            self.frame3['bg'] = 'red'
 
         if (self.select == 4):
             # TODO: flag student4
@@ -457,7 +456,7 @@ class coldCallGui:
             self.piclabel4.configure(image=new_image)
             self.piclabel4.image = new_image
 
-            self.right2['bg'] = 'red'
+            self.frame4['bg'] = 'red'
 
 #-------------------------------------------------------------------------------
 
