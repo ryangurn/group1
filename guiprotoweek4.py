@@ -9,6 +9,7 @@
 # import all the the tkinter library has to offer
 from tkinter import *
 from tkinter import filedialog
+from PIL import Image
 import StudentQueue
 import os
 import Roster
@@ -131,10 +132,14 @@ class coldCallGui:
 
         # adding the buttons to display the pictures
         # TODO: need a function to take name and return path to picture file
+
+
         self.image1 = PhotoImage(file=self.path2image(self.deck[0]))
         self.image2 = PhotoImage(file=self.path2image(self.deck[1]))
         self.image3 = PhotoImage(file=self.path2image(self.deck[2]))
         self.image4 = PhotoImage(file=self.path2image(self.deck[3]))
+
+
         self.piclabel1 = Label(self.left, image=self.image1)
         self.piclabel2 = Label(self.right, image=self.image2)
         self.piclabel3 = Label(self.left2, image=self.image3)
@@ -316,6 +321,7 @@ class coldCallGui:
             StudentQueue.export_queue_during(self.studentQ,self.deck)
 
             # TODO: need a function to take name and return path to picture file
+
             new_image = PhotoImage(file=self.path2image(self.deck[0]))
             self.piclabel1.configure(image=new_image)
             self.piclabel1.image = new_image
@@ -328,6 +334,7 @@ class coldCallGui:
             StudentQueue.export_queue_during(self.studentQ,self.deck)
 
             # TODO: need a function to take name and return path to picture file
+
             new_image = PhotoImage(file=self.path2image(self.deck[1]))
             self.piclabel2.configure(image=new_image)
             self.piclabel2.image = new_image
@@ -340,6 +347,7 @@ class coldCallGui:
             StudentQueue.export_queue_during(self.studentQ,self.deck)
 
             # TODO: need a function to take name and return path to picture file
+
             new_image = PhotoImage(file=self.path2image(self.deck[2]))
             self.piclabel3.configure(image=new_image)
             self.piclabel3.image = new_image
@@ -352,6 +360,7 @@ class coldCallGui:
             StudentQueue.export_queue_during(self.studentQ,self.deck)
 
             # TODO: need a function to take name and return path to picture file
+
             new_image = PhotoImage(file=self.path2image(self.deck[3]))
             self.piclabel4.configure(image=new_image)
             self.piclabel4.image = new_image
@@ -372,9 +381,10 @@ class coldCallGui:
             StudentQueue.export_queue_during(self.studentQ,self.deck)
 
             # TODO: need a function to take name and return path to picture file
-            new_image = PhotoImage(file=self.path2image(self.deck[0]))
-            self.piclabel1.configure(image=new_image)
-            self.piclabel1.image = new_image
+
+            new_image = PhotoImage(file=self.path2image(self.deck[3]))
+            self.piclabel4.configure(image=new_image)
+            self.piclabel4.image = new_image
 
             self.left['bg'] = 'red'
 
@@ -385,9 +395,10 @@ class coldCallGui:
             StudentQueue.export_queue_during(self.studentQ,self.deck)
 
             # TODO: need a function to take name and return path to picture file
-            new_image = PhotoImage(file=self.path2image(self.deck[1]))
-            self.piclabel2.configure(image=new_image)
-            self.piclabel2.image = new_image
+
+            new_image = PhotoImage(file=self.path2image(self.deck[3]))
+            self.piclabel4.configure(image=new_image)
+            self.piclabel4.image = new_image
 
             self.right['bg'] = 'red'
 
@@ -398,9 +409,10 @@ class coldCallGui:
             StudentQueue.export_queue_during(self.studentQ,self.deck)
 
             # TODO: need a function to take name and return path to picture file
-            new_image = PhotoImage(file=self.path2image(self.deck[2]))
-            self.piclabel3.configure(image=new_image)
-            self.piclabel3.image = new_image
+
+            new_image = PhotoImage(file=self.path2image(self.deck[3]))
+            self.piclabel4.configure(image=new_image)
+            self.piclabel4.image = new_image
 
             self.left2['bg'] = 'red'
 
@@ -411,6 +423,7 @@ class coldCallGui:
             StudentQueue.export_queue_during(self.studentQ,self.deck)
 
             # TODO: need a function to take name and return path to picture file
+
             new_image = PhotoImage(file=self.path2image(self.deck[3]))
             self.piclabel4.configure(image=new_image)
             self.piclabel4.image = new_image
