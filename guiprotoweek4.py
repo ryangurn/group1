@@ -9,7 +9,6 @@
 # import all the the tkinter library has to offer
 from tkinter import *
 from tkinter import filedialog
-from PIL import Image
 import StudentQueue
 import os
 import Roster
@@ -138,6 +137,11 @@ class coldCallGui:
         self.image2 = PhotoImage(file=self.path2image(self.deck[1]))
         self.image3 = PhotoImage(file=self.path2image(self.deck[2]))
         self.image4 = PhotoImage(file=self.path2image(self.deck[3]))
+
+        self.image1.zoom(50, 50)
+        self.image2.zoom(50, 50)
+        self.image3.zoom(50, 50)
+        self.image4.zoom(50, 50)
 
 
         self.piclabel1 = Label(self.left, image=self.image1)
