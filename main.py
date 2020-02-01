@@ -99,7 +99,7 @@ class coldCallGui:
         filemenu.add_cascade(label="Export Roster As", menu=exportmenu)
         filemenu.add_command(label="Export Term Report", command=self.exporttermreport)
         filemenu.add_separator()
-        filemenu.add_command(label="Exit", command=self.main.quit)
+        filemenu.add_command(label="Exit", command=self.main.destroy)
 
         # option menu submenu commands
         picturemenu.add_command(label="Use Pictures", command=self.usePics)
@@ -230,6 +230,18 @@ class coldCallGui:
             self.n2.set('{self.deck[1].first} {self.deck[1].last}'.format(self=self))
             self.n3.set('{self.deck[2].first} {self.deck[2].last}'.format(self=self))
             self.n4.set('{self.deck[3].first} {self.deck[3].last}'.format(self=self))
+            new_image1 = PhotoImage(file=self.path2image(self.deck[0]))
+            self.piclabel1.configure(image=new_image1)
+            self.piclabel1.image = new_image1
+            new_image2 = PhotoImage(file=self.path2image(self.deck[1]))
+            self.piclabel2.configure(image=new_image2)
+            self.piclabel2.image = new_image2
+            new_image3 = PhotoImage(file=self.path2image(self.deck[2]))
+            self.piclabel3.configure(image=new_image3)
+            self.piclabel3.image = new_image3
+            new_image4 = PhotoImage(file=self.path2image(self.deck[3]))
+            self.piclabel4.configure(image=new_image4)
+            self.piclabel4.image = new_image4
             StudentQueue.export_queue_during(self.studentQ, self.deck)
 
     # -------------------------------------------------------------------------------

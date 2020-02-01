@@ -12,6 +12,7 @@ import os
 import csv
 import copy
 import config
+import shutil
 
 # global
 CONFIG = config.configuration()
@@ -47,8 +48,10 @@ def students_list(filename, startbool):
     student_roster = Roster.Roster()
 
     QUEUE_PATH = str(queue_file[0] + "_queue.csv")
-    isQueue = os.path.exists(QUEUE_PATH)
-
+    if filename != CONFIG.DATA_PATH:
+        isQueue = os.path.exists(QUEUE_PATH)
+    else:
+        isQueue = False
     # this file will only exist if the program was not closed properly
     # it gets deleted at exit
     interruptedQ = os.path.exists('_queue.csv')
@@ -183,6 +186,7 @@ def export_queue_after(studentQ, deck):
             filewriter.writerow(
                 [out.first, out.last, out.ID, out.email, out.phonetic, out.reveal, out.noFlag, out.noCalled])
     csvfile.close()
+    shutil.copyfile(QUEUE_PATH, CONFIG.DATA_PATH)
 
 
 def remove_student(s_num, deck, studentQ, flag=False):
