@@ -4,6 +4,8 @@
 # StudentQueue.py
 
 import queue
+from datetime import date
+
 import Roster
 import random
 import os
@@ -159,7 +161,8 @@ def remove_student(s_num, deck, studentQ, flag=False):
     s_num -= 1
 
     f = "X" if flag else ""
-    dailyLog = "{}\t{} {} <{}>\n".format(f, deck[s_num].first, deck[s_num].last, deck[s_num].email)
+    today = date.today().isoformat()
+    dailyLog = "{}\t{}\t{} {} <{}>\n".format(today, f, deck[s_num].first, deck[s_num].last, deck[s_num].email)
     if flag:
         deck[s_num].noFlag += 1
     deck[s_num].noCalled += 1
