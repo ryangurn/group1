@@ -1,4 +1,4 @@
-# queue data structure for the Logic
+# queue data structure for main.py
 # Naser Alkhateri
 
 # StudentQueue.py
@@ -20,6 +20,15 @@ QUEUE_PATH = "-.csv"
 
 def students_list(filename, startbool):
     """
+        This function is called in main.py and uses Roster.py
+        to import a list of student objects from a given file.
+        
+        The purpose of this function is to check to see if the program
+        has interacted with the same roster before and to check if there are any
+        files made for that roster and imports it. If the program did not close
+        properly, a file that contains the last interaction will be loaded to continue 
+        where its left off.
+        
         Chooses the appropriate file to import
         Returns a list of objects from the imported file
         Args:
@@ -29,7 +38,7 @@ def students_list(filename, startbool):
         interruptedQ: to see if a queue that is from a previous run that did not exit properly
         filename: a string of the filename
         GLOBAL:
-        QUEUE_PATH
+        QUEUE_PATH -- a string containing the path of a file's queue.
     """
     student_roster = Roster.Roster()
     # queue are saved in _queue.csv while running
@@ -58,9 +67,17 @@ def students_list(filename, startbool):
 
 def create_queue(list):
     """
-        Takes in a list of object and places it in a queue
-        then returns queue
+        This function is called in main.py to return a queue of objects.
+        
+        The Cold Call Assistant is using the queue data structure
+        which is ideal for the purpose of this application. Having the first
+        object in to leave last makes this program efficient in making
+        objects leave the queue and returning to the end of the queue.
+        
+        Takes in a list of objects and places it in a queue
+        then returns queue.
         Args:
+        studentQ -- a queue of students
         list -- a list of student objects
     """
     # takes in a list and returns a queue
@@ -73,7 +90,15 @@ def create_queue(list):
 
 def randomizer(studentList):
     """
-        Takes the list of objects and shuffles the first half
+        This function is called in the students_list function.
+        
+        To make the system less predictable and to insure that all
+        students have an equal chance to ba called in deck. This function shuffles
+        the first half of a list and returns it.
+    
+    
+        Takes the list of objects and shuffles the first half and returns
+        the list.
         Args:
         studentList -- list of Student objects
         tempList -- a list that takes half of studentList
@@ -93,7 +118,14 @@ def randomizer(studentList):
 
 def export_queue_during(studentQ, deck):
     """
-        updates the queue's csv/tsv file while on deck is updated
+        This function is called in main.py to export a file of
+        the current stage of the queue after each change.
+        
+        The purpose of this function is to prevent data loss
+        when the application is not closed properly.
+        
+        
+        Updates the queue's csv/tsv file while on deck is updated
         Args:
         studentQ -- a queue of students
         deck -- list of 4 student objects
@@ -125,6 +157,13 @@ def export_queue_during(studentQ, deck):
 
 def export_queue_after(studentQ, deck):
     """
+        This function is called in main.py to export a file of
+        the current stage of the queue before program recieve an exit code.
+    
+        The purpose of this function is to save the queue order and flag's information.
+        The order of the queue is important to be saved to avoid repetition in calls
+        and to provide an equal chance for others to be called.
+    
         updates the queue's csv/tsv file before a successful exit
         Args:
         studentQ -- a queue of students
@@ -147,14 +186,23 @@ def export_queue_after(studentQ, deck):
 
 
 def remove_student(s_num, deck, studentQ, flag=False):
-    """
-        Removes a Student object from deck and replaces it
+    """ 
+        This function is called in main.py after the user made a 
+        selection from deck.
+        
+        The student that is to be removed from deck is added to the 
+        log with an 'X' before their name if flagged, then replaced with the next
+        student in queue, and the previous student is placed at the end of the queue.
+        
+    
+        Removes a Student object from deck and replaces it.
         with the next object in queue
         Args:
         s_num -- a number of the object's location
         deck -- list of 4 student objects
         studentQ -- a queue of students
-
+        dailylog -- a string formatted with the object's information.
+        f -- a string to distinguish between flagged and non-flagged
     """
 
     # decrement for list's index
@@ -175,14 +223,22 @@ def remove_student(s_num, deck, studentQ, flag=False):
     # place the student at the end of the queue
     studentQ.put(deck[s_num])
     deck[s_num] = studentQ.get()
-    # studentQ.put(deck[s_num])
+   
 
     return deck
 
 
 def deck_to_queue(studentQ, deck):
     """
-        takes the the deck and return it to the queue
+        This function is called by export_queue_after.
+        
+        The purpose of this function is to return the on deck objects
+        to the queue. 'on deck' students are not part of the queue unless they
+        are removed from the deck or the program is exiting and they are to be 
+        returned to the queue.
+    
+    
+        Takes the the deck and return it to the queue
         Args:
         deck -- list of 4 student objects
         studentQ -- a queue of students
@@ -195,6 +251,13 @@ def deck_to_queue(studentQ, deck):
 
 def on_deck(studentQ):
     """
+        This function is called in main.py to populate the deck
+        with the first 4 students in the queue.
+        
+        The program is made to view 4 students at a time on deck.
+        This list is generated by this function at the start. The list is then used 
+        to easily navigate through and removing a student from a specific index.
+    
         returns a list of the first 4 objects in queue
         Args:
         studentQ -- a queue of students
