@@ -200,6 +200,9 @@ class coldCallGui:
         if CONFIG.NO_PICTURES_KEYBIND:
             self.main.bind(CONFIG.KEYBIND_NO_PICTURES, self.noPics)
 
+        if not CONFIG.PICTURES_BY_DEFAULT:
+            self.noPics()
+
         # main window loop initiation
         self.main.attributes("-topmost", True)
         self.main.mainloop()
@@ -265,7 +268,7 @@ class coldCallGui:
 
     # -------------------------------------------------------------------------------
 
-    def usePics(self):
+    def usePics(self, f=None):
         print("Use Pictures")
 
         self.main.geometry(f"{self.width}x200")
@@ -278,7 +281,7 @@ class coldCallGui:
 
     # -------------------------------------------------------------------------------
 
-    def noPics(self):
+    def noPics(self, f=None):
         print("Do Not Use Pictures")
 
         self.main.geometry(f"{self.width}x50")
