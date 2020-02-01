@@ -33,10 +33,14 @@ class coldCallGui:
     def __init__(self):
 
         if os.path.exists('data.csv'):
-            self.studentList = StudentQueue.students_list('data.csv', True)
+            self.studentList = StudentQueue.students_list('data.csv')
             self.studentQ = StudentQueue.create_queue(self.studentList)
 
             self.deck = StudentQueue.on_deck(self.studentQ)
+            
+            #incase it interrupts before removing anyone from deck
+            StudentQueue.export_queue_during(self.studentQ,self.deck)
+            
             self.r = Roster.Roster()
             self.r.import_roster('data.csv')
         else:
@@ -48,10 +52,13 @@ class coldCallGui:
             data.write('place,holder,000000004,placeholder@placeholder,place holder,0\n')
             data.write('place,holder,000000005,placeholder@placeholder,place holder,0\n')
             data.close()
-            self.studentList = StudentQueue.students_list('data.csv', True)
+            self.studentList = StudentQueue.students_list('data.csv')
             self.studentQ = StudentQueue.create_queue(self.studentList)
 
             self.deck = StudentQueue.on_deck(self.studentQ)
+            
+            #incase it interrupts before removing anyone from deck
+            StudentQueue.export_queue_during(self.studentQ,self.deck)
             self.r = Roster.Roster()
             self.r.import_roster('data.csv')
 
@@ -183,7 +190,13 @@ class coldCallGui:
 
         #main window loop initiaition
         self.main.mainloop()
-
+        
+        print("exiting")
+        StudentQueue.export_queue_after(self.studentQ,self.deck)
+        #gets rid of _queue.csv since its exiting correctly
+        if os.path.exists('_queue.csv'):
+            os.remove('_queue.csv')
+        
 #-------------------------------------------------------------------------------
 #---Queue Function for Testing--------------------------------------------------
 #-------------------------------------------------------------------------------
@@ -205,10 +218,10 @@ class coldCallGui:
         self.main.filename = filedialog.askopenfilename(initialdir = CWD,title = "Select file",filetypes = (("csv/tsv files","*.csv *.tsv *.txt"),("all files","*.*")))
         if self.main.filename:
             self.r.import_roster(self.main.filename)
-            self.studentList = StudentQueue.students_list(self.main.filename, False)
+            self.studentList = StudentQueue.students_list(self.main.filename)
             self.studentQ = StudentQueue.create_queue(self.studentList)
-            self.s1, self.s2, self.s3, self.s4 = StudentQueue.on_deck(self.studentQ)
-            self.deck = [self.s1, self.s2, self.s3, self.s4]
+            
+            self.deck = StudentQueue.on_deck(self.studentQ)
             self.n1.set('{self.deck[0].first} {self.deck[0].last}'.format(self=self))
             self.n2.set('{self.deck[1].first} {self.deck[1].last}'.format(self=self))
             self.n3.set('{self.deck[2].first} {self.deck[2].last}'.format(self=self))
@@ -346,7 +359,7 @@ class coldCallGui:
         if (self.select == 1):
             self.deck = StudentQueue.remove_student(self.select, self.deck, self.studentQ)
             self.n1.set('{self.deck[0].first} {self.deck[0].last}'.format(self=self))
-            StudentQueue.export_queue_during(self.studentQ,self.deck)
+            #StudentQueue.export_queue_during(self.studentQ,self.deck)
 
             # TODO: need a function to take name and return path to picture file
 
@@ -359,7 +372,7 @@ class coldCallGui:
         if (self.select == 2):
             self.deck = StudentQueue.remove_student(self.select, self.deck, self.studentQ)
             self.n2.set('{self.deck[1].first} {self.deck[1].last}'.format(self=self))
-            StudentQueue.export_queue_during(self.studentQ,self.deck)
+            #StudentQueue.export_queue_during(self.studentQ,self.deck)
 
             # TODO: need a function to take name and return path to picture file
 
@@ -372,7 +385,7 @@ class coldCallGui:
         if (self.select == 3):
             self.deck = StudentQueue.remove_student(self.select, self.deck, self.studentQ)
             self.n3.set('{self.deck[2].first} {self.deck[2].last}'.format(self=self))
-            StudentQueue.export_queue_during(self.studentQ,self.deck)
+            #StudentQueue.export_queue_during(self.studentQ,self.deck)
 
             # TODO: need a function to take name and return path to picture file
 
@@ -385,7 +398,7 @@ class coldCallGui:
         if (self.select == 4):
             self.deck = StudentQueue.remove_student(self.select, self.deck, self.studentQ)
             self.n4.set('{self.deck[3].first} {self.deck[3].last}'.format(self=self))
-            StudentQueue.export_queue_during(self.studentQ,self.deck)
+            #StudentQueue.export_queue_during(self.studentQ,self.deck)
 
             # TODO: need a function to take name and return path to picture file
 
@@ -395,6 +408,7 @@ class coldCallGui:
 
             self.frame4['bg'] = 'green'
 
+        StudentQueue.export_queue_during(self.studentQ,self.deck)
 #-------------------------------------------------------------------------------
 
     def downKey(self, event):
@@ -406,7 +420,7 @@ class coldCallGui:
             # TODO: flag student1
             self.deck = StudentQueue.remove_student(self.select, self.deck, self.studentQ)
             self.n1.set('{self.deck[0].first} {self.deck[0].last}'.format(self=self))
-            StudentQueue.export_queue_during(self.studentQ,self.deck)
+            #StudentQueue.export_queue_during(self.studentQ,self.deck)
 
             # TODO: need a function to take name and return path to picture file
 
@@ -420,7 +434,7 @@ class coldCallGui:
             # TODO: flag student2
             self.deck = StudentQueue.remove_student(self.select, self.deck, self.studentQ)
             self.n2.set('{self.deck[1].first} {self.deck[1].last}'.format(self=self))
-            StudentQueue.export_queue_during(self.studentQ,self.deck)
+            #StudentQueue.export_queue_during(self.studentQ,self.deck)
 
             # TODO: need a function to take name and return path to picture file
 
@@ -434,7 +448,7 @@ class coldCallGui:
             # TODO: flag student3
             self.deck = StudentQueue.remove_student(self.select, self.deck, self.studentQ)
             self.n3.set('{self.deck[2].first} {self.deck[2].last}'.format(self=self))
-            StudentQueue.export_queue_during(self.studentQ,self.deck)
+            #StudentQueue.export_queue_during(self.studentQ,self.deck)
 
             # TODO: need a function to take name and return path to picture file
 
@@ -448,7 +462,7 @@ class coldCallGui:
             # TODO: flag student4
             self.deck = StudentQueue.remove_student(self.select, self.deck, self.studentQ)
             self.n4.set('{self.deck[3].first} {self.deck[3].last}'.format(self=self))
-            StudentQueue.export_queue_during(self.studentQ,self.deck)
+            #StudentQueue.export_queue_during(self.studentQ,self.deck)
 
             # TODO: need a function to take name and return path to picture file
 
@@ -458,6 +472,7 @@ class coldCallGui:
 
             self.frame4['bg'] = 'red'
 
+        StudentQueue.export_queue_during(self.studentQ,self.deck)
 #-------------------------------------------------------------------------------
 
 if __name__ == '__main__':

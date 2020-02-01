@@ -14,19 +14,38 @@ import copy
 #check wich file to start
 #returns a queue for the deck
 
-def students_list(filename, startbool):
+#global
+QUEUE_PATH = "-.csv"
+
+def students_list(filename):
     """
         Chooses the appropriate file to import
         Returns a list of objects from the imported file
         Args:
-        startbool: whether the file exists True/False
+        student_roster: object for Roster
+        startbool: whether queue file file exists True/False
+        isQueue: to see if a queue file associated with the roster given exists
         filename: a string of the filename
+        GLOBAL:
+        QUEUE_PATH
     """
     student_roster = Roster.Roster()
-
+    #queue are saved in _queue.csv while running
+    global QUEUE_PATH
+    queue_file = filename.split('.')
+    student_roster = Roster.Roster()
+    
+    QUEUE_PATH = str(queue_file[0]+"_queue.csv")
+    isQueue = os.path.exists(QUEUE_PATH)
+    
+    #this file will only exist if the program was not closed properly
+    # it gets deleted at exit
+    startbool = os.path.exists('_queue.csv')
     #checks if there is an updated queue
     if startbool:
-        student_roster.import_roster(filename)
+        student_roster.import_roster('_queue.csv')
+    elif isQueue:
+        student_roster.import_roster(QUEUE_PATH)
 
     else:
         student_roster.import_roster(filename)
@@ -91,7 +110,7 @@ def export_queue_during(studentQ,deck):
     tempQ = queue.Queue()
     tempQ.queue = copy.deepcopy(studentQ.queue)
     size = tempQ.qsize()
-    with open('data.csv', 'w') as csvfile:
+    with open('_queue.csv', 'w') as csvfile:
         filewriter = csv.writer(csvfile, lineterminator='\n')
         filewriter.writerow(['First', 'Last','UO ID','Email','Phonetic','Reveal'])
         for d in range(4):
@@ -115,7 +134,7 @@ def export_queue_after(studentQ,deck):
     #returns on deck students to queue
     deck_to_queue(studentQ,deck)
     size = studentQ.qsize()
-    with open('data.csv', 'w') as csvfile:
+    with open(QUEUE_PATH, 'w') as csvfile:
         filewriter = csv.writer(csvfile, lineterminator='\n')
         filewriter.writerow(['First', 'Last','UO ID','Email','Phonetic','Reveal'])
         for i in range(size):

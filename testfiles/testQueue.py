@@ -22,10 +22,10 @@ def test_menu():
 #for queue testing
 def main():
     clear()
-    studentList = StudentQueue.students_list()
+    studentList = StudentQueue.students_list('csvtest.csv')
     studentQ = StudentQueue.create_queue(studentList)
-    s1, s2, s3, s4 = StudentQueue.on_deck(studentQ)
-    deck = [s1, s2, s3, s4]
+    deck = StudentQueue.on_deck(studentQ)
+    #deck = [s1, s2, s3, s4]
     display_deck(deck)
     choice = -1
     while (choice != 0):
@@ -47,7 +47,7 @@ def main():
     #print(q.qsize())
     
     StudentQueue.export_queue_after(studentQ,deck)
-
+    os.remove('_queue.csv')
 if __name__=="__main__":
     main()
 
