@@ -33,7 +33,7 @@ class coldCallGui:
     def __init__(self):
 
         if os.path.exists('data.csv'):
-            self.studentList = StudentQueue.students_list('data.csv')
+            self.studentList = StudentQueue.students_list('data.csv',True)
             self.studentQ = StudentQueue.create_queue(self.studentList)
 
             self.deck = StudentQueue.on_deck(self.studentQ)
@@ -52,7 +52,7 @@ class coldCallGui:
             data.write('place,holder,000000004,placeholder@placeholder,place holder,0\n')
             data.write('place,holder,000000005,placeholder@placeholder,place holder,0\n')
             data.close()
-            self.studentList = StudentQueue.students_list('data.csv')
+            self.studentList = StudentQueue.students_list('data.csv',True)
             self.studentQ = StudentQueue.create_queue(self.studentList)
 
             self.deck = StudentQueue.on_deck(self.studentQ)
@@ -218,7 +218,7 @@ class coldCallGui:
         self.main.filename = filedialog.askopenfilename(initialdir = CWD,title = "Select file",filetypes = (("csv/tsv files","*.csv *.tsv *.txt"),("all files","*.*")))
         if self.main.filename:
             self.r.import_roster(self.main.filename)
-            self.studentList = StudentQueue.students_list(self.main.filename)
+            self.studentList = StudentQueue.students_list(self.main.filename,False)
             self.studentQ = StudentQueue.create_queue(self.studentList)
             
             self.deck = StudentQueue.on_deck(self.studentQ)

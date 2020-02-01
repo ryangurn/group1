@@ -17,14 +17,15 @@ import copy
 #global
 QUEUE_PATH = "-.csv"
 
-def students_list(filename):
+def students_list(filename,startbool):
     """
         Chooses the appropriate file to import
         Returns a list of objects from the imported file
         Args:
         student_roster: object for Roster
-        startbool: whether queue file file exists True/False
+        startbool: to diffrentate wether user is changing file
         isQueue: to see if a queue file associated with the roster given exists
+        interruptedQ: to see if a queue that is from a previous run that did not exit properly
         filename: a string of the filename
         GLOBAL:
         QUEUE_PATH
@@ -40,17 +41,18 @@ def students_list(filename):
     
     #this file will only exist if the program was not closed properly
     # it gets deleted at exit
-    startbool = os.path.exists('_queue.csv')
+    interruptedQ = os.path.exists('_queue.csv')
     #checks if there is an updated queue
-    if startbool:
+    if startbool and interruptedQ:
         student_roster.import_roster('_queue.csv')
     elif isQueue:
         student_roster.import_roster(QUEUE_PATH)
-
+        student_roster.students = randomizer(student_roster.students)
     else:
         student_roster.import_roster(filename)
             #send list to randomize
         student_roster.students = randomizer(student_roster.students)
+
     return student_roster.students
 
 #create_queue
