@@ -115,7 +115,7 @@ def export_queue_during(studentQ,deck):
         filewriter.writerow(['First', 'Last','UO ID','Email','Phonetic','Reveal'])
         for d in range(4):
             filewriter.writerow([deck[d].first, deck[d].last,deck[d].ID,deck[d].email,deck[d].phonetic,deck[d].reveal])
-        for i in range(size-4):
+        for i in range(size):
             out = tempQ.get()
             filewriter.writerow([out.first, out.last,out.ID,out.email,out.phonetic,out.reveal])
 
