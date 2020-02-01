@@ -195,6 +195,11 @@ class coldCallGui:
         if CONFIG.EXPORT_TSV_KEYBIND:
             self.main.bind(CONFIG.KEYBIND_TSV_EXPORT, self.exporttsv)
 
+        if CONFIG.USE_PICTURES_KEYBIND:
+            self.main.bind(CONFIG.KEYBIND_PICTURES, self.usePics)
+        if CONFIG.NO_PICTURES_KEYBIND:
+            self.main.bind(CONFIG.KEYBIND_NO_PICTURES, self.noPics)
+
         # main window loop initiation
         self.main.attributes("-topmost", True)
         self.main.mainloop()
