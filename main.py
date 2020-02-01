@@ -271,7 +271,7 @@ class coldCallGui:
     def usePics(self, f=None):
         print("Use Pictures")
 
-        self.main.geometry(f"{self.width}x200")
+        self.main.geometry("{}x200".format(self.width)
 
         # add images to frames
         self.piclabel1.pack()
@@ -284,8 +284,7 @@ class coldCallGui:
     def noPics(self, f=None):
         print("Do Not Use Pictures")
 
-        self.main.geometry(f"{self.width}x50")
-
+        self.main.geometry("{}x50".format(self.width))
         # add images to frames
         self.piclabel1.pack_forget()
         self.piclabel2.pack_forget()
