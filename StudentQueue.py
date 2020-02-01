@@ -1,7 +1,7 @@
 # queue data structure for the Logic
 # Naser Alkhateri
 
-#StudentQueue.py
+# StudentQueue.py
 
 import queue
 import Roster
@@ -9,15 +9,14 @@ import random
 import os
 import csv
 import copy
+import config
 
-
-#check wich file to start
-#returns a queue for the deck
-
-#global
+# global
+CONFIG = config.configuration()
 QUEUE_PATH = "-.csv"
 
-def students_list(filename,startbool):
+
+def students_list(filename, startbool):
     """
         Chooses the appropriate file to import
         Returns a list of objects from the imported file
@@ -31,18 +30,18 @@ def students_list(filename,startbool):
         QUEUE_PATH
     """
     student_roster = Roster.Roster()
-    #queue are saved in _queue.csv while running
+    # queue are saved in _queue.csv while running
     global QUEUE_PATH
     queue_file = filename.split('.')
     student_roster = Roster.Roster()
-    
-    QUEUE_PATH = str(queue_file[0]+"_queue.csv")
+
+    QUEUE_PATH = str(queue_file[0] + "_queue.csv")
     isQueue = os.path.exists(QUEUE_PATH)
-    
-    #this file will only exist if the program was not closed properly
+
+    # this file will only exist if the program was not closed properly
     # it gets deleted at exit
     interruptedQ = os.path.exists('_queue.csv')
-    #checks if there is an updated queue
+    # checks if there is an updated queue
     if startbool and interruptedQ:
         student_roster.import_roster('_queue.csv')
     elif isQueue:
@@ -50,12 +49,11 @@ def students_list(filename,startbool):
         student_roster.students = randomizer(student_roster.students)
     else:
         student_roster.import_roster(filename)
-            #send list to randomize
+        # send list to randomize
         student_roster.students = randomizer(student_roster.students)
 
     return student_roster.students
 
-#create_queue
 def create_queue(list):
     """
         Takes in a list of object and places it in a queue
@@ -63,15 +61,14 @@ def create_queue(list):
         Args:
         list -- a list of student objects
     """
-    #takes in a list and returns a queue
+    # takes in a list and returns a queue
     studentQ = queue.Queue()
 
     for i in range(len(list)):
         studentQ.put(list[i])
     return studentQ
 
-#randomizer for new queue
-#takes a list of objects randomizes first half
+
 def randomizer(studentList):
     """
         Takes the list of objects and shuffles the first half
@@ -92,11 +89,7 @@ def randomizer(studentList):
     return studentList
 
 
-#save during
-#export queue after each interaction
-#useful if user interupts the deck
-
-def export_queue_during(studentQ,deck):
+def export_queue_during(studentQ, deck):
     """
         updates the queue's csv/tsv file while on deck is updated
         Args:
@@ -107,23 +100,28 @@ def export_queue_during(studentQ,deck):
 
     """
 
-    #places on deck at the start of the queue.csv
-    #to keep same students on deck for next use
+    # places on deck at the start of the queue.csv
+    # to keep same students on deck for next use
     tempQ = queue.Queue()
     tempQ.queue = copy.deepcopy(studentQ.queue)
     size = tempQ.qsize()
     with open('_queue.csv', 'w') as csvfile:
         filewriter = csv.writer(csvfile, lineterminator='\n')
-        filewriter.writerow(['First', 'Last','UO ID','Email','Phonetic','Reveal'])
+        filewriter.writerow(
+            [CONFIG.STUDENT_FIRST, CONFIG.STUDENT_LAST, CONFIG.STUDENT_ID, CONFIG.STUDENT_EMAIL, CONFIG.STUDENT_PHONETIC, CONFIG.STUDENT_REVEAL, CONFIG.STUDENT_FLAGS, CONFIG.STUDENT_CALLS])
         for d in range(4):
-            filewriter.writerow([deck[d].first, deck[d].last,deck[d].ID,deck[d].email,deck[d].phonetic,deck[d].reveal])
+            filewriter.writerow(
+                [deck[d].first, deck[d].last, deck[d].ID, deck[d].email, deck[d].phonetic, deck[d].reveal,
+                 deck[d].noFlag, deck[d].noCalled])
         for i in range(size):
             out = tempQ.get()
-            filewriter.writerow([out.first, out.last,out.ID,out.email,out.phonetic,out.reveal])
+            filewriter.writerow(
+                [out.first, out.last, out.ID, out.email, out.phonetic, out.reveal, out.noFlag, out.noCalled])
 
     csvfile.close()
-#save after
-def export_queue_after(studentQ,deck):
+
+
+def export_queue_after(studentQ, deck):
     """
         updates the queue's csv/tsv file before a successful exit
         Args:
@@ -133,19 +131,20 @@ def export_queue_after(studentQ,deck):
         size -- Queue's size
 
     """
-    #returns on deck students to queue
-    deck_to_queue(studentQ,deck)
+    # returns on deck students to queue
+    deck_to_queue(studentQ, deck)
     size = studentQ.qsize()
     with open(QUEUE_PATH, 'w') as csvfile:
         filewriter = csv.writer(csvfile, lineterminator='\n')
-        filewriter.writerow(['First', 'Last','UO ID','Email','Phonetic','Reveal'])
+        filewriter.writerow([CONFIG.STUDENT_FIRST, CONFIG.STUDENT_LAST, CONFIG.STUDENT_ID, CONFIG.STUDENT_EMAIL, CONFIG.STUDENT_PHONETIC, CONFIG.STUDENT_REVEAL, CONFIG.STUDENT_FLAGS, CONFIG.STUDENT_CALLS])
         for i in range(size):
             out = studentQ.get()
-            filewriter.writerow([out.first, out.last,out.ID,out.email,out.phonetic,out.reveal])
+            filewriter.writerow(
+                [out.first, out.last, out.ID, out.email, out.phonetic, out.reveal, out.noFlag, out.noCalled])
     csvfile.close()
 
-def remove_student(s_num,deck,studentQ):
 
+def remove_student(s_num, deck, studentQ, flag=False):
     """
         Removes a Student object from deck and replaces it
         with the next object in queue
@@ -156,23 +155,29 @@ def remove_student(s_num,deck,studentQ):
 
     """
 
-
-    #takes the number selected from the deck
-    #takes the next student in queue and replace it with the selected
-    #the student that was removed is placed at the end of the queue
-
-    #TO DO ----- add flags
-
-    #decrement for list's index
+    # decrement for list's index
     s_num -= 1
-    #place the student at the end of the queue
+
+    f = "X" if flag else ""
+    dailyLog = "{}\t{} {} <{}>\n".format(f, deck[s_num].first, deck[s_num].last, deck[s_num].email)
+    if flag:
+        deck[s_num].noFlag += 1
+    deck[s_num].noCalled += 1
+
+    # write to a file for use later.
+    f = open(CONFIG.DAILY_LOG_PATH, "a+")
+    f.write(dailyLog)
+    f.close()
+
+    # place the student at the end of the queue
     studentQ.put(deck[s_num])
     deck[s_num] = studentQ.get()
-    #studentQ.put(deck[s_num])
+    # studentQ.put(deck[s_num])
 
     return deck
 
-def deck_to_queue(studentQ,deck):
+
+def deck_to_queue(studentQ, deck):
     """
         takes the the deck and return it to the queue
         Args:
@@ -180,9 +185,10 @@ def deck_to_queue(studentQ,deck):
         studentQ -- a queue of students
 
     """
-    #used to return the on deck students to queue
+    # used to return the on deck students to queue
     for i in deck:
         studentQ.put(i)
+
 
 def on_deck(studentQ):
     """
@@ -193,10 +199,9 @@ def on_deck(studentQ):
     """
     deck = []
 
-    #students are removed from queue
-    #and placed on deck
+    # students are removed from queue
+    # and placed on deck
     for i in range(4):
         deck.append(studentQ.get())
-
 
     return deck
