@@ -103,6 +103,9 @@ class coldCallGui:
         filemenu.add_cascade(label="Export Roster As", menu=exportmenu)
         filemenu.add_command(label="Export Term Report", command=self.exporttermreport)
         filemenu.add_separator()
+        filemenu.add_command(label="Open Data File", command=self.openDataFile)
+        filemenu.add_command(label="Open Daily Log", command=self.openDailyLog)
+        filemenu.add_separator()
         filemenu.add_command(label="Exit", command=self.main.destroy)
 
         # option menu submenu commands
@@ -247,6 +250,13 @@ class coldCallGui:
             self.piclabel4.configure(image=new_image4)
             self.piclabel4.image = new_image4
             StudentQueue.export_queue_during(self.studentQ, self.deck)
+
+    # -------------------------------------------------------------------------------
+    def openDataFile(self, f=None):
+        os.system("open "+ CONFIG.DATA_PATH)
+
+    def openDailyLog(self, f=None):
+        os.system("open "+ CONFIG.DAILY_LOG_PATH)
 
     # -------------------------------------------------------------------------------
 
