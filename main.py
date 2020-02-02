@@ -81,6 +81,9 @@ class coldCallGui:
         # main window
         self.main = Tk()
 
+        # setting the icon
+        self.main.call('wm', 'iconphoto', self.main._w, PhotoImage(file='images/icon.png'))
+
         # initializing a menu bar
         menubar = Menu(self.main)
 
@@ -127,7 +130,7 @@ class coldCallGui:
         # size of main window (short and wide for top of screen)
         # getting size of user-specific screen width
         self.width = self.main.winfo_screenwidth()
-        self.main.geometry("{}x200".format(self.width))
+        self.main.geometry("{}x230".format(self.width))
         self.main.title("Welcome to Cold-Call Assist")
 
         # 4 frames for the 4 students on deck
@@ -283,7 +286,7 @@ class coldCallGui:
     def usePics(self, f=None):
         print("Use Pictures")
 
-        self.main.geometry("{}x200".format(self.width))
+        self.main.geometry("{}x230".format(self.width))
 
         # add images to frames
         self.piclabel1.pack()
@@ -296,7 +299,7 @@ class coldCallGui:
     def noPics(self, f=None):
         print("Do Not Use Pictures")
 
-        self.main.geometry("{}x50".format(self.width))
+        self.main.geometry("{}x40".format(self.width))
         # add images to frames
         self.piclabel1.pack_forget()
         self.piclabel2.pack_forget()
