@@ -41,6 +41,9 @@ def students_list(filename, startbool):
         GLOBAL:
         QUEUE_PATH -- a string containing the path of a file's queue.
     """
+    if CONFIG.DEBUG:
+        print("Running students_list")
+
     student_roster = Roster.Roster()
     # queue are saved in _queue.csv while running
     global QUEUE_PATH
@@ -83,6 +86,9 @@ def create_queue(list):
         studentQ -- a queue of students
         list -- a list of student objects
     """
+    if CONFIG.DEBUG:
+        print("Creating Queue")
+
     # takes in a list and returns a queue
     studentQ = queue.Queue()
 
@@ -107,6 +113,9 @@ def randomizer(studentList):
         tempList -- a list that takes half of studentList
         first_half -- integer of the half of the list's size
     """
+    if CONFIG.DEBUG:
+        print("Randomizing StudentList")
+
     first_half = len(studentList) // 2
     tempList = []
     for i in range(first_half):
@@ -136,6 +145,9 @@ def export_queue_during(studentQ, deck):
         size -- Queue's size
 
     """
+
+    if CONFIG.DEBUG:
+        print("Exporting Queue During")
 
     # places on deck at the start of the queue.csv
     # to keep same students on deck for next use
@@ -175,6 +187,9 @@ def export_queue_after(studentQ, deck):
         size -- Queue's size
 
     """
+
+    if CONFIG.DEBUG:
+        print("Exporting Queue After")
     # returns on deck students to queue
     deck_to_queue(studentQ, deck)
     size = studentQ.qsize()
@@ -209,11 +224,17 @@ def remove_student(s_num, deck, studentQ, flag=False):
         f -- a string to distinguish between flagged and non-flagged
     """
 
+
+
     # decrement for list's index
     s_num -= 1
 
     f = "X" if flag else ""
     today = date.today().isoformat()
+
+    if CONFIG.DEBUG:
+        print("Removing a Student({} {}) Flag({})".format(deck[s_num].first, deck[s_num].last, f))
+
     dailyLog = "{}\t{}\t{} {} <{}>\n".format(today, f, deck[s_num].first, deck[s_num].last, deck[s_num].email)
     if flag:
         deck[s_num].noFlag += 1
@@ -248,6 +269,9 @@ def deck_to_queue(studentQ, deck):
         studentQ -- a queue of students
 
     """
+    if CONFIG.DEBUG:
+        print("Deck to Queue")
+
     # used to return the on deck students to queue
     for i in deck:
         studentQ.put(i)
@@ -267,6 +291,9 @@ def on_deck(studentQ):
         studentQ -- a queue of students
         deck -- list of 4 objects
     """
+    if CONFIG.DEBUG:
+        print("on Deck")
+
     deck = []
 
     # students are removed from queue
