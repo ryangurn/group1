@@ -258,7 +258,8 @@ class coldCallGui:
         None
         """
 
-        print("Import Roster Selected")
+        if CONFIG.DEBUG:
+            print("Import Roster Selected")
         self.main.filename = filedialog.askopenfilename(initialdir=CWD, title="Select file", filetypes=(
             ("csv/tsv files", "*.csv *.tsv *.txt"), ("all files", "*.*")))
         if self.main.filename:
@@ -293,6 +294,8 @@ class coldCallGui:
         None
         globals used:
         """
+        if CONFIG.DEBUG:
+            print("Opening Data file from ", CONFIG.DATA_PATH)
         os.system("open " + CONFIG.DATA_PATH)
 
     def openDailyLog(self, f=None):
@@ -302,6 +305,8 @@ class coldCallGui:
         None
         globals used:
         """
+        if CONFIG.DEBUG:
+            print("Open Daily log file from ", CONFIG.DAILY_LOG_PATH)
         os.system("open " + CONFIG.DAILY_LOG_PATH)
 
     # -------------------------------------------------------------------------------
@@ -315,7 +320,8 @@ class coldCallGui:
         globals used:
         delim -- this will determine what deliminator is used and thus if its using TSV or CSV
         """
-
+        if CONFIG.DEBUG:
+            print("Exporting CSV")
         self.main.filename = filedialog.asksaveasfilename(initialdir=CWD, title="Select file",
                                                           filetypes=(("csv files", ".csv"), ("all files", "*.*")),
                                                           defaultextension='.csv')
@@ -334,6 +340,9 @@ class coldCallGui:
         delim -- this will determine what deliminator is used and thus if its using TSV or CSV
         """
 
+        if CONFIG.DEBUG:
+            print("Exporting TSV")
+
         self.main.filename = filedialog.asksaveasfilename(initialdir=CWD, title="Select file",
                                                           filetypes=(("tsv files", ".tsv"), ("all files", "*.*")),
                                                           defaultextension='.tsv')
@@ -351,6 +360,8 @@ class coldCallGui:
         globals used:
         delim -- this will determine what deliminator is used and thus if its using TSV or CSV
         """
+        if CONFIG.DEBUG:
+            print("Exporting TXT")
 
         self.main.filename = filedialog.asksaveasfilename(initialdir=CWD, title="Select file",
                                                           filetypes=(("text files", ".txt"), ("all files", "*.*")),
@@ -369,6 +380,8 @@ class coldCallGui:
         globals used:
         delim -- this will determine what deliminator is used and thus if its using TSV or CSV
         """
+        if CONFIG.DEBUG:
+            print("Exporting Term Report")
 
         self.main.filename = filedialog.asksaveasfilename(initialdir=CWD, title="Select file",
                                                           filetypes=(("text files", ".txt"), ("all files", "*.*")),
@@ -385,8 +398,9 @@ class coldCallGui:
         self (main, picklabel[1-4])
         """
 
-        print("Use Pictures")
-
+        if CONFIG.DEBUG:
+            print("Using pictures on the 'on-deck' display")
+            print("Display set to {}x230".format(self.width))
         # expand the window geometry
         self.main.geometry("{}x230".format(self.width))
 
@@ -405,7 +419,9 @@ class coldCallGui:
         self (main, picklabel[1-4])
         """
 
-        print("Do Not Use Pictures")
+        if CONFIG.DEBUG:
+            print("Not using pictures on the 'on-deck' display")
+            print("Display set to {}x40".format(self.width))
 
         # Shrink the window geometry
         self.main.geometry("{}x40".format(self.width))
@@ -431,12 +447,18 @@ class coldCallGui:
 
         # if reveal set to 0, display default image
         if student.reveal == 0:
+            if CONFIG.DEBUG:
+                print("Student({} {}) has chosen not to be revealed".format(student.first, student.last))
             return "./images/default.png"
         # else check that student image exists, then return path to that image
         else:
             if os.path.exists("./images/" + str(student.ID) + ".png"):
+                if CONFIG.DEBUG:
+                    print("Student({} {}) will use the path ./images/{}.png".format(student.first, student.last, str(student.ID)))
                 return "./images/" + str(student.ID) + ".png"
             else:
+                if CONFIG.DEBUG:
+                    print("Student({} {}) will use the path ./images/default.png, unable to find their picture by <id>.png".format(student.first, student.last))
                 return "./images/default.png"
 
     # -------------------------------------------------------------------------------
@@ -452,7 +474,8 @@ class coldCallGui:
         event
         """
 
-        print("Left key pressed")
+        if CONFIG.DEBUG:
+            print("Left key pressed")
 
         # reset all colums color to background color
         self.frame1['bg'] = CONFIG.BACKGROUND_COLOR
@@ -487,7 +510,8 @@ class coldCallGui:
         event
         """
 
-        print("Right key pressed")
+        if CONFIG.DEBUG:
+            print("Right key pressed")
 
         # reset all colums color to background color
         self.frame1['bg'] = CONFIG.BACKGROUND_COLOR
@@ -522,7 +546,8 @@ class coldCallGui:
         event
         """
 
-        print("Up key pressed")
+        if CONFIG.DEBUG:
+            print("Remove key pressed")
 
         # indicates the selected student was chosen by coloring the frame
         if self.select == 1:
@@ -578,7 +603,8 @@ class coldCallGui:
         event
         """
 
-        print("Down key pressed")
+        if CONFIG.DEBUG:
+            print("Flag key pressed")
 
         # indicate the selected student has been flagged by coloring the frame
         if self.select == 1:
