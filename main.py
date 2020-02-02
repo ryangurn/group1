@@ -45,8 +45,29 @@ CWD = os.getcwd()  # current working directory
 
 
 class coldCallGui:
+    """
+    Main GUI Class
+    functions:
+    __init__ -- initialize the GUI
+    importRoster -- import student data
+    exporttsv -- export data in tsv format
+    exporttxt -- export data in txt format
+    exportcsv -- export data in csv format
+    exporttermreport -- export term report
+    usePics -- Sets the GUI to display pictures
+    noPics -- Sets the GUI to display text only
+    path2image -- Converts students to paths to images
+    leftKey -- left key Binding
+    rightKey -- right key Binding
+    upKey -- up key Binding
+    downKey -- down key Binding
+    """
 
     def __init__(self):
+        """
+        Initialize the GUI upon application start
+
+        """
 
         if os.path.exists(CONFIG.DATA_PATH):
             self.studentList = StudentQueue.students_list(CONFIG.DATA_PATH, True)
@@ -83,7 +104,6 @@ class coldCallGui:
 
         # setting the icon
         self.main.call('wm', 'iconphoto', self.main._w, PhotoImage(file='images/icon.png'))
-        self.main.iconbitmap("newicon.ico")
 
         # initializing a menu bar
         menubar = Menu(self.main)
@@ -224,6 +244,16 @@ class coldCallGui:
     # -------------------------------------------------------------------------------
 
     def importRoster(self, f=None):
+        """
+        Calls function from Roster.py
+        Allows the roster to be imported from CSV/TSV
+        args:
+        filename -- the location at which the file to be imported is stored
+        globals used:
+        delim -- this will determine what deliminator is used and thus if its using TSV or CSV
+        None
+        """
+
         print("Import Roster Selected")
         self.main.filename = filedialog.askopenfilename(initialdir=CWD, title="Select file", filetypes=(
             ("csv/tsv files", "*.csv *.tsv *.txt"), ("all files", "*.*")))
@@ -261,6 +291,15 @@ class coldCallGui:
     # -------------------------------------------------------------------------------
 
     def exportcsv(self, f=None):
+        """
+        Calls function from Roster.py
+        Allows the roster to be exported to TSV/CSV
+        args:
+        None
+        globals used:
+        delim -- this will determine what deliminator is used and thus if its using TSV or CSV
+        """
+
         self.main.filename = filedialog.asksaveasfilename(initialdir=CWD, title="Select file",
                                                           filetypes=(("csv files", ".csv"), ("all files", "*.*")),
                                                           defaultextension='.csv')
@@ -270,6 +309,15 @@ class coldCallGui:
     # -------------------------------------------------------------------------------
 
     def exporttsv(self, f=None):
+        """
+        Calls function from Roster.py
+        Allows the roster to be exported to TSV/CSV
+        args:
+        None
+        globals used:
+        delim -- this will determine what deliminator is used and thus if its using TSV or CSV
+        """
+
         self.main.filename = filedialog.asksaveasfilename(initialdir=CWD, title="Select file",
                                                           filetypes=(("tsv files", ".tsv"), ("all files", "*.*")),
                                                           defaultextension='.tsv')
@@ -279,13 +327,33 @@ class coldCallGui:
     # -------------------------------------------------------------------------------
 
     def exporttxt(self):
+        """
+        Calls function from Roster.py
+        Allows the roster to be exported to TSV/CSV
+        args:
+        None
+        globals used:
+        delim -- this will determine what deliminator is used and thus if its using TSV or CSV
+        """
+
         self.main.filename = filedialog.asksaveasfilename(initialdir=CWD, title="Select file",
                                                           filetypes=(("text files", ".txt"), ("all files", "*.*")),
                                                           defaultextension='.txt')
         if self.main.filename:
             self.r.export_roster(self.main.filename, ',')
 
+    # -------------------------------------------------------------------------------
+
     def exporttermreport(self):
+        """
+        Calls function from Roster.py
+        Allows the roster to be exported to TSV/CSV
+        args:
+        None
+        globals used:
+        delim -- this will determine what deliminator is used and thus if its using TSV or CSV
+        """
+
         self.main.filename = filedialog.asksaveasfilename(initialdir=CWD, title="Select file",
                                                           filetypes=(("text files", ".txt"), ("all files", "*.*")),
                                                           defaultextension='.txt')
@@ -295,8 +363,15 @@ class coldCallGui:
     # -------------------------------------------------------------------------------
 
     def usePics(self, f=None):
+        """
+        Bound to menu button allowing UI to change to picture-viewing mode
+        args:
+        self (main, picklabel[1-4])
+        """
+
         print("Use Pictures")
 
+        # expand the window geometry
         self.main.geometry("{}x230".format(self.width))
 
         # add images to frames
@@ -308,10 +383,18 @@ class coldCallGui:
     # -------------------------------------------------------------------------------
 
     def noPics(self, f=None):
+        """
+        Bound to menu button allowing UI to change to text-only mode
+        args:
+        self (main, picklabel[1-4])
+        """
+
         print("Do Not Use Pictures")
 
+        # Shrink the window geometry
         self.main.geometry("{}x40".format(self.width))
-        # add images to frames
+
+        # hide images from frames
         self.piclabel1.pack_forget()
         self.piclabel2.pack_forget()
         self.piclabel3.pack_forget()
@@ -322,8 +405,18 @@ class coldCallGui:
     # -------------------------------------------------------------------------------
 
     def path2image(self, student):
+        """
+        Converts student object to file path
+        args:
+        student -- student object
+        return:
+        path to student objects respective image file
+        """
+
+        # if reveal set to 0, display default image
         if student.reveal == 0:
             return "./images/default.png"
+        # else check that student image exists, then return path to that image
         else:
             if os.path.exists("./images/" + str(student.ID) + ".png"):
                 return "./images/" + str(student.ID) + ".png"
@@ -335,9 +428,17 @@ class coldCallGui:
     # -------------------------------------------------------------------------------
 
     def leftKey(self, event):
+        """
+        Left key press event handler to move selection left
+        Uses color values from config file
+        args:
+        self (select, frame[1-4])
+        event
+        """
+
         print("Left key pressed")
 
-        # reset all colums color to white
+        # reset all colums color to background color
         self.frame1['bg'] = CONFIG.BACKGROUND_COLOR
         self.frame2['bg'] = CONFIG.BACKGROUND_COLOR
         self.frame3['bg'] = CONFIG.BACKGROUND_COLOR
@@ -362,9 +463,17 @@ class coldCallGui:
     # -------------------------------------------------------------------------------
 
     def rightKey(self, event):
+        """
+        Right key press event handler to move selection right
+        Uses color values from config file
+        args:
+        self (select, frame[1-4])
+        event
+        """
+
         print("Right key pressed")
 
-        # reset all colums color to white
+        # reset all colums color to background color
         self.frame1['bg'] = CONFIG.BACKGROUND_COLOR
         self.frame2['bg'] = CONFIG.BACKGROUND_COLOR
         self.frame3['bg'] = CONFIG.BACKGROUND_COLOR
@@ -389,9 +498,17 @@ class coldCallGui:
     # -------------------------------------------------------------------------------
 
     def upKey(self, event):
+        """
+        Up key press event handler to remove student with no flag
+        Uses color values from config file
+        args:
+        self (select, frame[1-4], deck, piclabel[1-4])
+        event
+        """
+
         print("Up key pressed")
 
-        # indicate the selected student was selected by coloring frame green
+        # indicates the selected student was chosen by coloring the frame
         if self.select == 1:
             self.deck = StudentQueue.remove_student(self.select, self.deck, self.studentQ)
             self.n1.set('{self.deck[0].first} {self.deck[0].last}'.format(self=self))
@@ -437,9 +554,17 @@ class coldCallGui:
     # -------------------------------------------------------------------------------
 
     def downKey(self, event):
+        """
+        Down key press event handler to remove student with flag
+        Uses color values from config file
+        args:
+        self (select, frame[1-4], deck, piclabel[1-4])
+        event
+        """
+
         print("Down key pressed")
 
-        # indicate the selected student has been flagged by coloring frame red
+        # indicate the selected student has been flagged by coloring the frame
         if self.select == 1:
             self.deck = StudentQueue.remove_student(self.select, self.deck, self.studentQ, True)
             self.n1.set('{self.deck[0].first} {self.deck[0].last}'.format(self=self))
