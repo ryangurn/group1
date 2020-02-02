@@ -83,6 +83,7 @@ class coldCallGui:
 
         # setting the icon
         self.main.call('wm', 'iconphoto', self.main._w, PhotoImage(file='images/icon.png'))
+        self.main.iconbitmap("newicon.ico")
 
         # initializing a menu bar
         menubar = Menu(self.main)
