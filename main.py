@@ -123,8 +123,12 @@ class coldCallGui:
         filemenu.add_cascade(label="Export Roster As", menu=exportmenu)
         filemenu.add_command(label="Export Term Report", command=self.exporttermreport)
         filemenu.add_separator()
+
+        # add an open data file and open daily file open in the menu's
         filemenu.add_command(label="Open Data File", command=self.openDataFile)
         filemenu.add_command(label="Open Daily Log", command=self.openDailyLog)
+
+
         filemenu.add_separator()
         filemenu.add_command(label="Exit", command=self.main.destroy)
 
@@ -283,10 +287,22 @@ class coldCallGui:
 
     # -------------------------------------------------------------------------------
     def openDataFile(self, f=None):
-        os.system("open "+ CONFIG.DATA_PATH)
+        """
+        Allows the user to open the data file from the menu and not search the while HD.
+        args:
+        None
+        globals used:
+        """
+        os.system("open " + CONFIG.DATA_PATH)
 
     def openDailyLog(self, f=None):
-        os.system("open "+ CONFIG.DAILY_LOG_PATH)
+        """
+        Allows the user to open the daily log file from the menu and not search the while HD.
+        args:
+        None
+        globals used:
+        """
+        os.system("open " + CONFIG.DAILY_LOG_PATH)
 
     # -------------------------------------------------------------------------------
 
