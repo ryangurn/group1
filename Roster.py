@@ -1,6 +1,20 @@
-# Basic roster and student data structures
-# Author Cory Ingram. Reviewed by Alex Archer 
-# Docstrings added by Ryan Gurnick
+"""
+Roster.py is the data structure used by StudentQueue. There are Student objects which 
+have associated identifying information. Student objects are collected into a Roster object.
+
+Reviewed 2/2/20 AA
+
+Authors:
+(Group 1)
+Alex Archer
+Naser Alkhateri
+Ryan Gurnick
+Cory Ingram
+Sean Wilson
+
+Priority credit to:
+Cory Ingram.  - 1/20/20  Creation
+"""
 
 # Imports from std lib
 import csv

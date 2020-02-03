@@ -1,4 +1,20 @@
 """
+
+Config.py is a configuration parser that we have co-opted to provider 
+the user some ability to configure the program to their needs and accessiblity requirements.
+
+Reviewed 2/2/20
+
+Authors:
+(Group 1)
+Alex Archer
+Naser Alkhateri
+Ryan Gurnick
+Cory Ingram
+Sean Wilson
+
+Priority credit to:
+
 Citations:
 Ryan Gurnick & Professor Ram
 Provided to students at that time

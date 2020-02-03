@@ -1,13 +1,5 @@
-Create a README.txt file in the top directory that explains what is in this directory of files, and which includes:
-1. A very brief description of the system.
-2. The authors (alphabetical by last name).
-3. When it was created.
-4. Why it was created such as the class name and assignment.
-5. What needs to be done to compile the source code and run the program.
-6. Any additional setup that is needed.
-7. Software dependencies such as the version of the compiler.
-8. A brief description of what is in each subdirectory in the directory structure.
-
+<!-- Group 1 Authors: Alex Archer, Naser Alkhateri, Ryan Gurnick, Cory Ingram, Sean Wilson. 2/2/20. This is the readme for github -->
+# Official README
 Cold call assist is a python program designed to show a selection of students to be "on deck" for cold calling in a classroom setting. 
 
 Authors:
@@ -26,7 +18,7 @@ What needs to be done to compile the source code and run the program:
 
 1. Double click on 'start.sh' 
   1.1- If there are xcode or permission issues on your operating system click instead on 'main.py'
-2. When running the program we reccomend you use a testfile in /testfiles/ like csvtest.csv to import as to simulate an effective Roster file.
+2. When running the program we recommend you use a testfile in /testfiles/ like csvtest.csv to import as to simulate an effective Roster file.
 
 Software Dependencies:
 Python 3.7
@@ -66,3 +58,11 @@ to power off and unexpected exits.
 dailylog.* - a summary of activity within the program
 
 
+# Cold Call Assist 
+
+This is a python program designed to assist in the fair and randomized selection of students for cold calling in a classroom. 
+A graphical manager will display four students and associated data on screen. Key stroke interactions will cycle between or remove students from being on deck. Students can be flagged for review later. A daily and term roster can be generated. Many user settings are configurable. 
+
+
+# [WIKI](https://github.com/ryangurn/group1/wiki)
+Please observe our wiki for more information
