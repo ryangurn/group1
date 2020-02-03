@@ -1,7 +1,20 @@
 """
-Sean Wilson - 1/20/20
-GUI Prototype v2.0
-Group1 cis422 @ U of O W'20
+Main.py is the Display Manager equvalent for Cold Call Assist.
+Contains the tkinter elements necessary to display the Roster to the User.
+
+Reviewed 2/2/20
+
+Authors:
+(Group 1)
+Alex Archer
+Naser Alkhateri
+Ryan Gurnick
+Cory Ingram
+Sean Wilson
+
+Priority credit to:
+Sean Wilson - 1/20/20  Creation
+
 """
 
 from tkinter import *
