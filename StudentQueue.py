@@ -190,12 +190,24 @@ def export_queue_after(studentQ, deck):
 
     if CONFIG.DEBUG:
         print("Exporting Queue After")
-    # returns on deck students to queue
-    deck_to_queue(studentQ, deck)
+    if CONFIG.DECK_LAST:
+        if CONFIG.DEBUG:
+                print("second half")
+        # returns on deck students to queue
+        deck_to_queue(studentQ, deck)
+    
     size = studentQ.qsize()
     with open(QUEUE_PATH, 'w') as csvfile:
         filewriter = csv.writer(csvfile, lineterminator='\n')
         filewriter.writerow([CONFIG.STUDENT_FIRST, CONFIG.STUDENT_LAST, CONFIG.STUDENT_ID, CONFIG.STUDENT_EMAIL, CONFIG.STUDENT_PHONETIC, CONFIG.STUDENT_REVEAL, CONFIG.STUDENT_FLAGS, CONFIG.STUDENT_CALLS])
+ 
+        if not CONFIG.DECK_LAST:
+            if CONFIG.DEBUG:
+                print("First half")
+            for student_deck in deck:
+                filewriter.writerow(
+                [student_deck.first, student_deck.last, student_deck.ID, student_deck.email, student_deck.phonetic, student_deck.reveal, student_deck.noFlag, student_deck.noCalled])
+
         for i in range(size):
             out = studentQ.get()
             filewriter.writerow(
