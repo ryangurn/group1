@@ -1,7 +1,21 @@
-# queue data structure for main.py
-# Naser Alkhateri
+"""
+StudentQueue.py is the Queue data structure used by Main.py's Display Manager to store and retrieve
+Student objects from a Roster.
 
-# StudentQueue.py
+Reviewed 2/2/20 AA
+
+Authors:
+(Group 1)
+Alex Archer
+Naser Alkhateri
+Ryan Gurnick
+Cory Ingram
+Sean Wilson
+
+Priority credit to:
+Naser Alkhateri - 1/20/20  Creation
+
+"""
 
 import queue
 from datetime import date
