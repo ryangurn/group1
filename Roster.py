@@ -173,8 +173,7 @@ class Roster:
         expfile = open(filename, 'w')  # open the file stream
         # write the first line of the file which includes the headers of the columns
         expfile.write(
-            '{CONFIG.STUDENT_CALLS}{c}{CONFIG.STUDENT_FLAGS}{c}{CONFIG.STUDENT_FIRST}{c}{CONFIG.STUDENT_LAST}{c}{CONFIG.STUDENT_ID}{c}{CONFIG.STUDENT_EMAIL}{c}{CONFIG.STUDENT_PHONETIC}{c}{CONFIG.STUDENT_REVEAL}\n'.format(
-                c=dlm))
+                      '{CONFIG.STUDENT_FIRST}{c}{CONFIG.STUDENT_LAST}{c}ID{c}{CONFIG.STUDENT_EMAIL}{c}{CONFIG.STUDENT_PHONETIC}{c}{CONFIG.STUDENT_REVEAL}{c}{CONFIG.STUDENT_FLAGS}{c}{CONFIG.STUDENT_CALLS}\n'.format(CONFIG=CONFIG, c=dlm))
         for student in self.students:  # loop through the students stored in the roster
             # output the file information with the correct delimiter and student
             expfile.write(
